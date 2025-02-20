@@ -1,5 +1,15 @@
-## File Structure
+# U.S Agricultural Future Market
+## Overview
+TODO write later, introduce the agricultural market. The U.S position in 
+global market. The main participate of the markets. 
 
+For the concerned agricultural products, introduce their production cycle, 
+growing area and some results from the EDA.
+
+
+
+## File Structure
+TODO, remove to a separate file
 ```bash
 ErdosAgriDerivPredict/
 ├── README.md                # Overview of the project, setup instructions, and usage examples.
@@ -17,3 +27,4 @@ ErdosAgriDerivPredict/
 ## Data Source
 1. yfinance API
 2. USDA/NASS QuickStats API
+3. [Federal Reserve Economic Data (FRED)](https://fred.stlouisfed.org/)
