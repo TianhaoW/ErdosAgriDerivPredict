@@ -8,6 +8,7 @@ For now, the main datasets I will be focusing on are
 3.	Weather data from https://mrcc.purdue.edu/, which includes weather information of the relevant states (Iowa, Illinois, Nebraska, Minnesota, and Indiana).
 
 The coproducts I will consider include
-* Ethanol* Animal feed for cattle, pigs, and poultry.
+* Ethanol
+* Animal feed for cattle, pigs, and poultry.
 
 I will also gather information about these coproducts from Yahoo Finance and USDA. Finally, if time allows, I will gather news data to consider its impacts on future prices of corn and its coproducts.
