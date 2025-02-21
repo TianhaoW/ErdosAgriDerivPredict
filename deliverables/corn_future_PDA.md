@@ -3,9 +3,9 @@ The United States of America is the top producer of corn. Corn in the US is main
 I will use the data from Yahoo Finance and USDA among other information such as news and weather to do predictive data analysis on the prices of corn futures and the futures of corn coproducts. If time allows, I will also investigate the impact of recent tariffs on the price of corn futures.
 
 For now, the main datasets I will be focusing on are 
-1.	Future prices on yahoo finance https://finance.yahoo.com/quote/ZC%3DF/, which can be imported into jupyter notebook via their APIs.
-2.	Production/consumption data from USDA https://quickstats.nass.usda.gov/, which can be downloaded directly from their website.
-3.	Weather data from https://mrcc.purdue.edu/, which includes weather information of the relevant states (Iowa, Illinois, Nebraska, Minnesota, and Indiana).
+1.	Future prices on [yahoo finance](https://finance.yahoo.com/quote/ZC%3DF/), which can be imported into jupyter notebook via their APIs.
+2.	Production/consumption data from [USDA](https://quickstats.nass.usda.gov/), which can be downloaded directly from their website.
+3.	[Weather data](https://mrcc.purdue.edu/), which includes weather information of the relevant states (Iowa, Illinois, Nebraska, Minnesota, and Indiana).
 
 The coproducts I will consider include
 * Ethanol
