@@ -2,17 +2,6 @@ import numpy as np
 import pandas as pd
 from pandas.tseries.offsets import BDay
 
-
-def _compute_rsi(data, window=14):
-    delta = data['Close'].diff()
-    gain = (delta.where(delta > 0, 0)).rolling(window=window).mean()
-    loss = (-delta.where(delta < 0, 0)).rolling(window=window).mean()
-
-    rs = gain / loss
-    data[f'RSI_{window}'] = 100 - (100 / (1 + rs))
-    return data
-
-
 # Creating a series of expiry days of those contracts
 contract_months = [3, 5, 7, 9, 12]
 expiry_dates = []
