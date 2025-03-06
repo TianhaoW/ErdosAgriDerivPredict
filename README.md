@@ -35,6 +35,14 @@ We will analyze the following agricultural commodities. Their production cycles,
 ---
 
 ## **Project Goal**  
+This is a group project for the [Erdos Institute](https://www.erdosinstitute.org/) 
+2025 Spring data science bootcamp. Our team members are 
+[Anshuman Bhardwaj](https://github.com/AnshumanGH91), 
+[John Yin](https://github.com/johng23),
+[Paul Rapoport](https://github.com/Lorxus), 
+[Sam Auyeung](https://github.com/sunscorched), 
+[Tianhao Wang](https://github.com/TianhaoW).
+
 Due to data limitations, we focus on the **daily closing price** of the **nearest-to-expiry** futures contracts. Our objective is to analyze market trends and develop predictive models for agricultural futures prices.  
 
 ### **Project Stages**  
@@ -43,18 +51,19 @@ Due to data limitations, we focus on the **daily closing price** of the **neares
 🚀 **Stage 3:** Use **satellite imagery** (via CNNs or other ML models) to assess crop growth conditions. This may involve classification tasks or using CNNs for feature extraction.  
 📊 **Stage 4:** Analyze **news reports** and **USDA monthly reports** using NLP techniques such as **news classification** and **sentiment analysis**.  
 
+### **Data Sources**  
+We collect data from the following sources:  
+1. **[yfinance API](https://pypi.org/project/yfinance/)** – Provides futures market data, including price and volume.  
+2. **[USDA/NASS QuickStats API](https://quickstats.nass.usda.gov/)** – Agricultural production statistics and reports.  
+3. **[Federal Reserve Economic Data (FRED)](https://fred.stlouisfed.org/)** – Macroeconomic indicators such as interest rates and inflation.
+
 ---
 
 ## **Exploratory Data Analysis (EDA) & Baseline Model**  
 
 🔗 **TODO**: Add links to EDA summary  
 
----
 
-## **Data Sources**  
-We collect data from the following sources:  
-1. **[yfinance API](https://pypi.org/project/yfinance/)** – Provides futures market data, including price and volume.  
-2. **[USDA/NASS QuickStats API](https://quickstats.nass.usda.gov/)** – Agricultural production statistics and reports.  
-3. **[Federal Reserve Economic Data (FRED)](https://fred.stlouisfed.org/)** – Macroeconomic indicators such as interest rates and inflation.  
+
 
  
