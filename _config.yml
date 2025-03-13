@@ -1,0 +1,32 @@
+# Run [bundle exec jekyll serve] to test the site locally
+
+# page build set up
+remote_theme: chrisrhymes/bulma-clean-theme@v0.14.0
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  math_engine: mathjax
+  mathjax:
+    process_escapes: true
+  syntax_highlighter_opts:
+    guess_lang: false
+
+# site setting
+title: U.S. Agricultural Futures Market
+email: tianhw11@uci.edu
+
+# This will always fix the navigation bar at the top
+fixed_navbar: top
+
+defaults:
+  -
+    scope:
+      path: "_pages/"
+    values:
+      layout: page
+      toc: true
+      toc_title: Table of Contents
+
+
+
