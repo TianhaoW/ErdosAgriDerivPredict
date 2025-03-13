@@ -1,12 +1,12 @@
 import pandas as pd
 import requests
 import yfinance as yf
-from src.data.Preprocess import extend_market_data
+from src.data.preprocess import extend_market_data
+from src.utils.config_tool import parse_config
 
-_USDA_api_key = "7BACC84D-4D4E-31CE-9828-0EAF5D6338DB"
-_NCDC_api_key = "sAfDxhRkTzDkPBjtktOThBJjnCfzAtax"
 _USDA_url = 'https://quickstats.nass.usda.gov/api/api_GET/'
 _NCDC_url = "https://www.ncei.noaa.gov/cdo-web/api/v2/"
+config = parse_config()
 
 class DataLoader:
     def __init__(self):
@@ -40,7 +40,7 @@ class DataLoader:
             'locationid': location_id,
             'limit': 1000,
         }
-        response = requests.get(_NCDC_url + 'data', params=params, headers={'token': _NCDC_api_key})
+        response = requests.get(_NCDC_url + 'data', params=params, headers={'token': config['api']['NCDC_api_key']})
 
         if response.status_code == 200:
             data = response.json()
@@ -54,7 +54,7 @@ class DataLoader:
         stations_df = pd.DataFrame(columns=['name', 'latitude', 'longitude'])
         stations_df.index.name = 'station'
         for station in weather_data.station.unique():
-            response = requests.get(_NCDC_url + 'stations/' + station, headers={'token': _NCDC_api_key})
+            response = requests.get(_NCDC_url + 'stations/' + station, headers={'token': config['api']['NCDC_api_key']})
             if response.status_code == 200:
                 stations_df.loc[station] = [response.json()['name'], response.json()['latitude'], response.json()['longitude']]
             else:
@@ -68,4 +68,136 @@ class DataLoader:
         data = ticker.history(start=start_date, end=end_date).drop(['Dividends', 'Stock Splits'], axis=1)
         return extend_market_data(data) if extended else data
 
+    def get_production_data(self, commodity: str, start_year: int, national_level=False, raw=False) -> pd.DataFrame | None:
+        """
+        :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
+        :param start_year: the starting year of the data
+        :param raw: If true, this will return the raw data with many additional columns
+        :return: the production data obtained from the API
+
+        This function will return the annual production data per state obtained from the USDA API. Please be aware that
+        there could be several data in a year. This is usually caused by different data collection methods (survey vs census)
+        or different commodity subcategories (e.g. For wheat, there are HRW, SRW, HRS wheat)
+        """
+        params = {
+            'key': config['api']['USDA_api_key'],
+            'commodity_desc': commodity,
+            'statisticcat_desc': 'PRODUCTION',
+            'agg_level_desc': 'STATE',
+            'year__GE': start_year,
+            'format': 'JSON',
+#            'unit_desc': 'BU',
+#            'domaincat_desc': 'NOT SPECIFIED',
+        }
+
+        if national_level:
+            params['agg_level_desc'] = 'NATIONAL'
+
+        response = requests.get(_USDA_url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            raw_data = pd.DataFrame(data['data'])
+
+            if raw:
+                return raw_data
+            else:
+                # Convert the numerical columns from string to numerical values
+                raw_data['year'] = pd.to_numeric(raw_data['year'])
+                raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
+                raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
+
+                cols = ['state_name', 'Value', 'unit_desc', 'year', 'source_desc', 'short_desc']
+
+                return raw_data[cols]
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
+
+    def get_stocks_data(self, commodity: str, start_year: int, national_level=False, raw=False) -> pd.DataFrame | None:
+        """
+        :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
+        :param start_year: the starting year of the data
+        :param raw: if true, this will return the raw data with many additional columns
+        :param national_level: If true, this will return the US national level data instead of state level data
+        :return:
+
+        This function will return the quarterly stock data per state or nationwide obtained from the USDA API.
+        """
+        params = {
+            'key': config['api']['USDA_api_key'],
+            'commodity_desc': commodity,
+            'statisticcat_desc': 'STOCKS',
+            'agg_level_desc': 'STATE',
+            'year__GE': start_year,
+            'format': 'JSON',
+        }
+
+        if national_level:
+            params['agg_level_desc'] = 'NATIONAL'
+
+        response = requests.get(_USDA_url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            raw_data = pd.DataFrame(data['data'])
+
+            if raw:
+                return raw_data
+            else:
+                # Convert the numerical columns from string to numerical values
+                raw_data['year'] = pd.to_numeric(raw_data['year'])
+                raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
+                raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
+
+                pivoted = raw_data.pivot(index=['year', 'end_code', 'state_name'], columns='short_desc',
+                                       values='Value').reset_index()
+
+                pivoted.rename(columns={'end_code': 'end_month'}, inplace=True)
+                return pivoted
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
+
+    def get_condition_data(self, commodity: str, start_year: int, national_level=False,
+                        raw=False) -> pd.DataFrame | None:
+        """
+        :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
+        :param start_year: the starting year of the data
+        :param raw: if true, this will return the raw data with many additional columns
+        :param national_level: If true, this will return the US national level data instead of state level data
+        :return:
+
+        This function will return the growing condition of the selected commodity. This data is provided by the USDA weekly.
+        """
+        params = {
+            'key': config['api']['USDA_api_key'],
+            'commodity_desc': commodity,
+            'statisticcat_desc': 'CONDITION',
+            'agg_level_desc': 'STATE',
+            'year__GE': start_year,
+            'format': 'JSON',
+        }
+
+        if national_level:
+            params['agg_level_desc'] = 'NATIONAL'
+
+        response = requests.get(_USDA_url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            raw_data = pd.DataFrame(data['data'])
+
+            if raw:
+                return raw_data
+            else:
+                # Convert the numerical columns from string to numerical values
+                raw_data['year'] = pd.to_numeric(raw_data['year'])
+                raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
+                raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
+
+                pivoted = raw_data.pivot(index=['week_ending', 'year', 'state_name', 'end_code'], columns='unit_desc', values='Value').reset_index().set_index('week_ending')
+                pivoted.rename(columns={'end_code': 'week_number'}, inplace=True)
+
+                return pivoted
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
 

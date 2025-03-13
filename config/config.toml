@@ -1,0 +1,17 @@
+
+########################################################
+# this contains all the API keys to obtain data.
+[api]
+USDA_api_key = ""
+NCDC_api_key = ""
+
+########################################################
+# this contains the standard setup of the train-valid-test split
+[train]
+train_start_date = "2014-01-01"
+valid_start_date = "2024-01-01"
+
+########################################################
+# this contains all the local path information
+[path]
+local_data_path = ""
