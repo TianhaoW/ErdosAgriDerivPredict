@@ -19,14 +19,14 @@ email: tianhw11@uci.edu
 # This will always fix the navigation bar at the top
 fixed_navbar: top
 
-defaults:
-  -
-    scope:
-      path: "_pages/"
-    values:
-      layout: page
-      toc: true
-      toc_title: Table of Contents
+#defaults:
+#  -
+#    scope:
+#      path: "_pages/"
+#    values:
+#      layout: page
+#      toc: true
+#      toc_title: Table of Contents
 
 
 

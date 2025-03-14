@@ -1,11 +1,11 @@
-- name: PlaceHolder
-  link: /
+- name: Futures 101
+  link: /pages/intro
   dropdown:
     - name: Placeholder
       link: /
     - name: Plcaeholder
       link: /
-- name: Placeholder
-  link: /
-- name: Placeholder
-  link: /
+- name: Market Overview
+  link: /pages/analysis
+- name: AI Forecasting
+  link: /pages/prediction

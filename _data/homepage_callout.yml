@@ -1,0 +1,21 @@
+style: is-light
+height: is-medium
+items:
+  - title: "Futures Trading 101:"
+    subtitle: An Introduction
+    icon: fa-book
+    call_to_action_name: Learn the Basics
+    call_to_action_link: /pages/intro
+  - title: "The U.S. Agricultural Futures Market:"
+    subtitle:  Trends & Insights
+    icon: fa-search-dollar
+#    description: >
+#      Dive into the U.S. agricultural futures market with data-driven insights. Explore the key market dynamics through interactive charts and visualizations.
+    call_to_action_name: Dive Into the Data
+    call_to_action_link: /pages/analysis
+  - title: Tomorrow’s Price, Today!
+    subtitle: AI-Powered Predictions
+    icon: fas fa-chart-line
+    icon_brand: true
+    call_to_action_name: See the Predictions
+    call_to_action_link: /pages/prediction
