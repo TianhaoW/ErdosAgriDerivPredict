@@ -59,7 +59,8 @@ class DataLoader:
                 stations_df.loc[station] = [response.json()['name'], response.json()['latitude'], response.json()['longitude']]
             else:
                 print(f"Error: cannot access station {station} with error code {response.status_code}")
-                return weather_data
+                return None
+                # return weather_data
 
         return weather_data.merge(stations_df, on='station', how='left')
 
