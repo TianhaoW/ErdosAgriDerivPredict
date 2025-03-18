@@ -48,7 +48,7 @@ class DataLoader:
             weather_data['date'] = pd.to_datetime(weather_data['date'])
             print("successfully fetched weather data")
         else:
-            print(f"Error: {response.status_code}")
+            print(f"Error: {response.status_code}, {response.text}")
             return None
 
         stations_df = pd.DataFrame(columns=['name', 'latitude', 'longitude'])
