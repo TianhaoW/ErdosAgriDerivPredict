@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[39]:
-
-
 import rasterio
 from rasterio.transform import xy
 from pyproj import Transformer
@@ -23,17 +17,6 @@ def pixelToLatitudeLongitude(src, row, col):
     
     return (lat, lon)
 
-# def getLatitudeLongitudeCrop(arr, src, cropValue):
-#     # arr = src.read(1)
-#     LatLon = []
-#     for i in range(len(arr)):
-#         if i % 10 == 0:
-#             print(i,len(arr))
-#         for j in range(len(arr[0])):
-#             if arr[i][j] == cropValue:
-#                 LatLon.append(pixelToLatitudeLongitude(src, i, j))
-#     return LatLon
-
 def latitudeLongitudeToPixel(src, lat, lon, m):
     transform = src.transform  # Get affine transform
     crs = src.crs  # Get coordinate system
@@ -46,25 +29,6 @@ def latitudeLongitudeToPixel(src, lat, lon, m):
     # print(f"Projected X: {x_proj}, Projected Y: {y_proj}")
     row,col = rowcol(transform, x_proj, y_proj)
     return (row//m, col//m)
-    # print(f"Array indices: Row {row}, Col {col}")
-    
-    # height, width = src.height, src.width  # Get raster size
-    
-    # if 0 <= row < height and 0 <= col < width:
-    #     print("Point is inside the raster.")
-    # else:
-    #     print("Point is outside the raster (negative index).")
-
-
-# In[40]:
-
-
-# # src = rasterio.open("../data/2023_30m_cdls.tif")
-# # arr = src.read(1)
-# dat = getLatitudeLongitudeCrop(arr, src, 1)
-
-
-# In[68]:
 
 
 import heapq
@@ -83,18 +47,14 @@ def getLatLonClimateFromMatrixAndList(arr, k, stationDict, rmax = 9999999):
             for (i,j) in indexShift:
                 a1 = a+i
                 b1 = b+j
-                # Replace outofbounds with proper bounds check
+
+                #bounds check
                 if a1 < 0 or a1 >= len(arr) or b1 < 0 or b1 >= len(arr[0]):
                     continue
                 if done[a1][b1]:
                     continue
                 relevant = True
                 hotIndices.append((a1,b1))
-                # if arr[a1][b1] == cropValue:
-                #     # Initialize the heap if this is the first time seeing this coordinate
-                    # if (a1,b1) not in results_map:
-                    #     results_map[(a1,b1)] = []
-                    # heapq.heappush(results_map[(a1,b1)], (np.sqrt(i**2+j**2),a,b))
                 if (a1,b1) not in results_map:
                     results_map[(a1,b1)] = []
                 heapq.heappush(results_map[(a1,b1)], (np.sqrt(i**2+j**2),stationDict[(a,b)]))
@@ -115,6 +75,9 @@ def getLatLonClimateFromMatrixAndList(arr, k, stationDict, rmax = 9999999):
 
         if len(l) == 0:
             break
+    for (a,b) in results_map.keys():
+        if arr[a][b] != 0:
+            trueResults.append((arr[a][b],results_map[(a,b)]))
         # print(trueResults)
     return trueResults
                 
@@ -167,65 +130,6 @@ def find_integer_pairs_optimized(r):
     # Remove duplicates that might have been added in the symmetric additions
     return list(set(result))
 
-
-# In[18]:
-
-
-# weatherStations is a list of tuples (lat, lon)
-def getKNearestLocationsHelper(arr, cropSrc, weatherStations, k, rmax, m):
-    # arr = src.read(1)
-    stationDict = {}
-    for (lon, lat) in weatherStations:
-        # print(lat,lon)
-        stationDict[latitudeLongitudeToPixel(cropSrc, lat, lon, m)] = (lat, lon)
-    results = getLatLonClimateFromMatrixAndList(arr, k, stationDict, rmax)
-    return results
-    
-
-
-# In[20]:
-
-
-import requests
-import json
-import requests
-import json
-import pandas as pd
-from geopy.distance import geodesic
-from datetime import datetime
-from datetime import timedelta
-
-def get_climate_data(date, state):
-    url = "http://data.rcc-acis.org/MultiStnData"
-    current_date = str(datetime.now().date())
-    start_date = str((datetime.now()-timedelta(days = 15*1)).date())
-    params = {
-        # "sid": sid,  # Station ID
-        # "sdate": start_date,  # Start date
-        # "edate": current_date,  # End date
-        "date": date,
-        "state": state,
-        "elems":["maxt","mint","avgt","pcpn","snow"],
-        "output": "json"
-    }
-    
-    response = requests.post(url, json=params)
-    
-    if response.status_code == 200:
-        data = response.json()
-        return data
-    else:
-        print("Error fetching data:", response.status_code, response.text)
-d = get_climate_data("2025-03-01","IL")
-lonlatlist = []
-for i in range(len(d["data"])):
-    if "ll" in d.get("data")[i]["meta"].keys():
-        lonlatlist.append(d.get("data")[i]["meta"]["ll"])
-
-
-# In[32]:
-
-
 import numpy as np
 
 def apply_convolution(matrix, kernel, cropValue):
@@ -261,36 +165,169 @@ def apply_convolution(matrix, kernel, cropValue):
     
     return output
 
-
-# In[34]:
-
-
-# m = 30
-# cropValue = 1
-# src = rasterio.open("../data/2023_30m_cdls.tif")
-# arr = apply_convolution(src.read(1), np.ones((m,m)), cropValue)
-
-
-# # In[69]:
-
-
-# r = 10
-# k = 4
-# dat = getKNearestLocationsHelper(arr, src, lonlatlist, k, r, m)
-
-#src is something like src = rasterio.open("../data/2023_30m_cdls.tif") aka HUGE array
-#lonlatlist is a list of longitude and latitudes (of weather stations)
-#k is the k nearest neighbors
-#r is some notion of distance that you can basically think that scales linearly i.e. a unit like miles or kilometers. It is the search radius.
+#src is something like src = "../data/2023_30m_cdls.tif" aka HUGE array
 #m is the downscale factor for the src array
 #cropValue is the "categorization code" here https://www.nass.usda.gov/Research_and_Science/Cropland/sarsfaqs2.php#what.7
-#for each nonzero amount of 30 by 30 meters of land of cropValue within r pixel radius of some station in lonlatlist, it returns how many 30 by 30 meters of crop production there is, along with k pairs (distance to station, lonlat of station) associated to the k nearest stations. The algorithm downsamples by a factor of m from src.
-def getKNearestLocations(src, lonlatlist, k, r, m, cropValue):
-    arr = apply_convolution(src.read(1), np.ones((m,m)), cropValue)
-    dat = getKNearestLocationsHelper(arr, src, lonlatlist, k, r, m)
-    return dat
 
+class bigArrayParser:
+    def __init__(self, src, m, cropValue):
+        self.src = rasterio.open(src)
+        self.arr = apply_convolution(self.src.read(1), np.ones((m,m)), cropValue)
+        self.m = m
+        self.cropValue = cropValue
+        return
+        
+    #lonlatlistlist is a list of lists of longitude and latitudes (of weather stations), probably one list for each date
+    #k is the k nearest neighbors
+    #r is some notion of distance that you can basically think that scales linearly i.e. a unit like miles or kilometers. It is the search radius.
+    #for each nonzero amount of 30 by 30 meters of land of cropValue within r pixel radius of some station in a list in lonlatlistlist, 
+    # it returns how many 30 by 30 meters of crop production there is, along with k pairs (distance to station, lonlat of station) 
+    # associated to the k nearest stations. The algorithm downsamples by a factor of m from src.
+    def getKNearestLocations(self, lonlatlistlist, k, r):
+        retval = []
+        for i in range(len(lonlatlistlist)):
+            dat = getKNearestLocationsHelper(lonlatlistlist[i], k, r, m)
+            retval.append(dat)
+        return retval
 
+    # weatherStations is a list of tuples (lat, lon)
+    def getKNearestLocationsHelper(self, weatherStations, k, rmax, m):
+        # arr = src.read(1)
+        stationDict = {}
+        for (lon, lat) in weatherStations:
+            # print(lat,lon)
+            stationDict[latitudeLongitudeToPixel(self.src, lat, lon, m)] = (lon, lat)
+        results = getLatLonClimateFromMatrixAndList(self.arr, k, stationDict, rmax)
+        return results
 
+from datetime import date, timedelta
+import requests
+import json
+import pandas as pd
+from geopy.distance import geodesic
+from datetime import datetime
+from datetime import timedelta
 
+def get_climate_data(state, start_date, end_date):
+    stns = []
+    stndata = get_station_data(state, start_date, end_date)["meta"]
+    for i in range(len(stndata)):
+        stns.append(stndata[i]["sids"][0])
+    
+    url = "http://data.rcc-acis.org/MultiStnData"
+    params = {
+        # "sid": sid,  # Station ID
+        "sdate": start_date,  # Start date
+        "edate": end_date,  # End date
+        # "date": date,
+        "sids": stns,
+        "elems":["maxt","mint","avgt","pcpn","snow"],
+        "output": "json"
+    }
+    
+    response = requests.post(url, json=params)
+    
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print("Error fetching data:", response.status_code, response.text)
 
+def get_station_data(state, start_date, end_date):
+    url = "http://data.rcc-acis.org/StnMeta"
+    # current_date = str(datetime.now().date())
+    # start_date = str((datetime.now()-timedelta(days = 15*1)).date())
+    params = {
+        # "sid": sid,  # Station ID
+        "sdate": start_date,  # Start date
+        "edate": end_date,  # End date
+        # "date": date,
+        "state": state,
+        "elems":["avgt"],
+        "output": "json"
+    }
+    
+    response = requests.post(url, json=params)
+    
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print("Error fetching data:", response.status_code, response.text)
+
+def daterange(start_date: date, end_date: date):
+    
+    days = int((end_date - start_date).days)
+    for n in range(days):
+        yield start_date + timedelta(n)
+
+def get_station_data_by_date(start_date, end_date, state):
+    start_date2 = datetime.fromisoformat(start_date)
+    end_date2 = datetime.fromisoformat(end_date)
+    
+    lonlatlistlist = []
+    for date in daterange(start_date2, end_date2):
+        lonlatlist = []
+        d = get_station_data(str(date)[0:10], state)
+        for i in range(len(d["data"])):
+            if "ll" in d.get("data")[i]["meta"].keys():
+                lonlatlist.append(d.get("data")[i]["meta"]["ll"])
+        lonlatlistlist.append([str(date)[0:10],lonlatlist])
+
+    return lonlatlistlist
+    
+def climate_data_to_dict(climate_data):
+    ll_to_data = {}
+    climate_data2 = climate_data["data"]
+    for i in range(len(climate_data2)):
+        if "ll" in climate_data2[i]["meta"].keys():
+            l1, l2 = climate_data2[i]["meta"]["ll"]
+            ll_to_data[(l1, l2)] = climate_data2[i]["data"]
+    return ll_to_data
+
+def weightedSum(KNearestLocationDataValue, ll_to_data, days):
+    retval = np.zeros(5)
+    #5 is the number of elems
+    for i in range(5):
+        valArr = []
+        distArr = []
+        for j in range(len(KNearestLocationDataValue)):
+            
+            if ll_to_data[KNearestLocationDataValue[j][1]][days][i] == 'M' or ll_to_data[KNearestLocationDataValue[j][1]][days][i] == 'S' or ll_to_data[KNearestLocationDataValue[j][1]][days][i][-1] == 'A':
+                continue
+            if ll_to_data[KNearestLocationDataValue[j][1]][days][i] == 'T':
+                valArr.append(0)
+                distArr.append(KNearestLocationDataValue[j][0])
+            else:
+                valArr.append(ll_to_data[KNearestLocationDataValue[j][1]][days][i])
+                distArr.append(KNearestLocationDataValue[j][0])
+        if len(distArr) == 0:
+            return [-99999]
+        if distArr[0] == 0:
+            retval[i] = valArr[0]
+        else:
+            totInvDist = sum(1/distArr[j] for j in range(len(distArr)))
+            retval[i] = sum((1/distArr[j])/totInvDist * float(valArr[j]) for j in range(len(valArr)))
+    return retval
+
+    def get_area_with_climate(k, r, m, state, start_date, end_date):
+    
+        climate_area_data_over_time={}
+        ll_to_data = climate_data_to_dict(get_climate_data(state, start_date, end_date))
+        KNearestLocationData = self.getKNearestLocationsHelper(list(ll_to_data.keys()), k, r, m)
+        start_date2 = datetime.fromisoformat(start_date)
+        end_date2 = datetime.fromisoformat(end_date)
+        for date in daterange(start_date2, end_date2):
+            climate = {}
+            for i in range(len(KNearestLocationData)):
+                area = KNearestLocationData[i][0]
+                retval = weightedSum(KNearestLocationData[i][1], ll_to_data, (date-start_date2).days)
+                if len(retval) == 1:
+                    continue
+                maxt, mint, avgt, prcp, snow = retval
+                if (round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1)) not in climate.keys():
+                    climate[(round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))] = area
+                else:
+                    climate[(round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))] += area
+            climate_area_data_over_time[date] = climate
+        return climate_area_data_over_time
