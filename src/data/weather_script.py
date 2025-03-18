@@ -164,42 +164,7 @@ def apply_convolution(matrix, kernel, cropValue):
             output[i, j] = np.sum(masked_matrix_patch * kernel)  # Apply convolution
     
     return output
-
-#src is something like src = "../data/2023_30m_cdls.tif" aka HUGE array
-#m is the downscale factor for the src array
-#cropValue is the "categorization code" here https://www.nass.usda.gov/Research_and_Science/Cropland/sarsfaqs2.php#what.7
-
-class bigArrayParser:
-    def __init__(self, src, m, cropValue):
-        self.src = rasterio.open(src)
-        self.arr = apply_convolution(self.src.read(1), np.ones((m,m)), cropValue)
-        self.m = m
-        self.cropValue = cropValue
-        return
-        
-    #lonlatlistlist is a list of lists of longitude and latitudes (of weather stations), probably one list for each date
-    #k is the k nearest neighbors
-    #r is some notion of distance that you can basically think that scales linearly i.e. a unit like miles or kilometers. It is the search radius.
-    #for each nonzero amount of 30 by 30 meters of land of cropValue within r pixel radius of some station in a list in lonlatlistlist, 
-    # it returns how many 30 by 30 meters of crop production there is, along with k pairs (distance to station, lonlat of station) 
-    # associated to the k nearest stations. The algorithm downsamples by a factor of m from src.
-    def getKNearestLocations(self, lonlatlistlist, k, r):
-        retval = []
-        for i in range(len(lonlatlistlist)):
-            dat = getKNearestLocationsHelper(lonlatlistlist[i], k, r, m)
-            retval.append(dat)
-        return retval
-
-    # weatherStations is a list of tuples (lat, lon)
-    def getKNearestLocationsHelper(self, weatherStations, k, rmax, m):
-        # arr = src.read(1)
-        stationDict = {}
-        for (lon, lat) in weatherStations:
-            # print(lat,lon)
-            stationDict[latitudeLongitudeToPixel(self.src, lat, lon, m)] = (lon, lat)
-        results = getLatLonClimateFromMatrixAndList(self.arr, k, stationDict, rmax)
-        return results
-
+    
 from datetime import date, timedelta
 import requests
 import json
@@ -310,8 +275,46 @@ def weightedSum(KNearestLocationDataValue, ll_to_data, days):
             retval[i] = sum((1/distArr[j])/totInvDist * float(valArr[j]) for j in range(len(valArr)))
     return retval
 
-    def get_area_with_climate(k, r, m, state, start_date, end_date):
-    
+
+#src is something like src = "../data/2023_30m_cdls.tif" aka HUGE array
+#m is the downscale factor for the src array
+#cropValue is the "categorization code" here https://www.nass.usda.gov/Research_and_Science/Cropland/sarsfaqs2.php#what.7
+
+class bigArrayParser:
+    def __init__(self, src, m, cropValue, arr = None):
+        self.src = rasterio.open(src)
+        if arr != None:
+            self.arr = arr
+        else:
+            self.arr = apply_convolution(self.src.read(1), np.ones((m,m)), cropValue)
+        self.m = m
+        self.cropValue = cropValue
+        return
+        
+    #lonlatlistlist is a list of lists of longitude and latitudes (of weather stations), probably one list for each date
+    #k is the k nearest neighbors
+    #r is some notion of distance that you can basically think that scales linearly i.e. a unit like miles or kilometers. It is the search radius.
+    #for each nonzero amount of 30 by 30 meters of land of cropValue within r pixel radius of some station in a list in lonlatlistlist, 
+    # it returns how many 30 by 30 meters of crop production there is, along with k pairs (distance to station, lonlat of station) 
+    # associated to the k nearest stations. The algorithm downsamples by a factor of m from src.
+    def getKNearestLocations(self, lonlatlistlist, k, r):
+        retval = []
+        for i in range(len(lonlatlistlist)):
+            dat = getKNearestLocationsHelper(lonlatlistlist[i], k, r, m)
+            retval.append(dat)
+        return retval
+
+    # weatherStations is a list of tuples (lat, lon)
+    def getKNearestLocationsHelper(self, weatherStations, k, rmax, m):
+        # arr = src.read(1)
+        stationDict = {}
+        for (lon, lat) in weatherStations:
+            # print(lat,lon)
+            stationDict[latitudeLongitudeToPixel(self.src, lat, lon, m)] = (lon, lat)
+        results = getLatLonClimateFromMatrixAndList(self.arr, k, stationDict, rmax)
+        return results
+    def get_area_with_climate(self, k, r, m, state, start_date, end_date):
+
         climate_area_data_over_time={}
         ll_to_data = climate_data_to_dict(get_climate_data(state, start_date, end_date))
         KNearestLocationData = self.getKNearestLocationsHelper(list(ll_to_data.keys()), k, r, m)
