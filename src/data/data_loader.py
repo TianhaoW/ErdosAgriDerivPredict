@@ -147,6 +147,7 @@ class DataLoader:
             else:
                 # Convert the numerical columns from string to numerical values
                 raw_data['year'] = pd.to_numeric(raw_data['year'])
+                raw_data['end_month'] = raw_data['end_month'].astype(int)
                 raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
                 raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
 

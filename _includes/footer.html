@@ -1,0 +1,27 @@
+<footer class="footer">
+    <div class="container">
+        {% if site.footer_menu %}
+            <div class="columns is-multiline">
+                {% for item in site.data[site.footer_menu] %}
+                    <div class="column has-text-centered">
+                        <div>
+                            <a href="{{ item.link | relative_url }}" class="link">{{ item.name }}</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+
+        This is a group project for the <a href = "https://www.erdosinstitute.org/">Erdos Institute</a>
+        2025 Spring data science bootcamp. Our team members are
+        <a href = "https://github.com/AnshumanGH91">Anshuman Bhardwaj</a>,
+        <a href = "https://github.com/johng23">John Yin</a>,
+        <a href = "https://github.com/Lorxus">Paul Rapoport</a>,
+        <a href = "https://github.com/sunscorched">Sam Auyeung</a>,
+        <a href = "https://tianhaow.github.io">Tianhao Wang</a>
+        <div class="content is-small has-text-centered">
+            <p class="">Theme built by <a href="https://www.csrhymes.com">C.S. Rhymes</a></p>
+        </div>
+    </div>
+</footer>
