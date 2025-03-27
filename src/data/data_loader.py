@@ -147,7 +147,7 @@ class DataLoader:
             else:
                 # Convert the numerical columns from string to numerical values
                 raw_data['year'] = pd.to_numeric(raw_data['year'])
-                raw_data['end_month'] = raw_data['end_month'].astype(int)
+                # raw_data['end_month'] = raw_data['end_month'].astype(int)
                 raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
                 raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
 
@@ -159,11 +159,12 @@ class DataLoader:
         else:
             print(f"Error: {response.status_code}, {response.text}")
 
-    def get_condition_data(self, commodity: str, start_year: int, national_level=False,
+    def get_condition_data(self, commodity: str, start_year: int, exact_year=None, national_level=False,
                         raw=False) -> pd.DataFrame | None:
         """
         :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
         :param start_year: the starting year of the data
+        :param exact_year: if this value is set, then this function will return the data of that year.
         :param raw: if true, this will return the raw data with many additional columns
         :param national_level: If true, this will return the US national level data instead of state level data
         :return:
@@ -181,6 +182,10 @@ class DataLoader:
 
         if national_level:
             params['agg_level_desc'] = 'NATIONAL'
+
+        if exact_year:
+            del params['year__GE']
+            params['year'] = exact_year
 
         response = requests.get(_USDA_url, params=params)
 
