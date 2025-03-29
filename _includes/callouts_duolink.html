@@ -1,0 +1,38 @@
+{% if page.callouts_duolink %}
+    {% assign callouts=site.data[page.callouts_duolink] %}
+    <section class="hero {{ callouts.height | default: 'is-medium' }} {{ callouts.style }}">
+        <div class="hero-body">
+            <div class="container">
+                <div class="columns is-multiline is-centered">
+                    {% for callout in callouts.items %}
+                        <div class="column is-5">
+                            <div class="box has-text-centered">
+                                {% if callout.img %}
+                                    <figure class="image is-16by9">
+                                        <img src="{{ callout.img | relative_url }}" alt="{{ callout.title }}">
+                                    </figure>
+                                {% endif %}
+
+                                <p class="title is-5 mt-3">{{ callout.title }}</p>
+
+                                {% if callout.description %}
+                                    <p class="content is-small">{{ callout.description }}</p>
+                                {% endif %}
+
+                                <div class="buttons is-centered">
+                                    <a href="{{ callout.call_to_action_link | relative_url }}" class="button is-primary">
+                                        {{ callout.call_to_action_name }}
+                                    </a>
+
+                                    <a href="{{ callout.call_to_action_secondary_link }}" class="button is-info" target="_blank">
+                                        {{ callout.call_to_action_secondary_name }}
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}

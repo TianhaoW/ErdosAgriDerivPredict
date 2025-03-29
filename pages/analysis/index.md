@@ -1,9 +1,6 @@
-# Market Overview
-
-content placeholder
-
-Latex inline math rendering test $\int_a^b f(x)dx$
-
-Latex block math rendering test
-
-$$A\to B\to C$$
+---
+layout: page
+title: Market Overview
+subtitle: Dive into the Data
+callouts_duolink: analysis_callout_duolink
+---

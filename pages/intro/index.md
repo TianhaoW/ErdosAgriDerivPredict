@@ -1,35 +1,37 @@
 ---
 layout: page
+title: Futures Trading 101
+subtitle: An Introduction
 menubar_toc: true
 toc_title: Table of Contents
 ---
-# Futures Trading 101: An Introduction
 ## Future Contracts Overview
-- **Definition**: A **futures contract** is a legally binding agreement to buy or sell an asset at a predetermined 
-  price (**futures price**) on a specific date in the future (**expiry date**).  
+- **Definition**: A *futures contract* is a legally binding agreement to buy or sell an asset at a predetermined 
+  price (*futures price*) on a specific date in the future (*expiry date*).  
 
 - **Market Participants**:  
   - **Commodity Producers** (e.g., farmers) use futures contracts to hedge against potential losses if prices decline.  
   - **Commodity Users** (e.g., food manufacturers) buy futures contracts to protect against potential price increases.  
-  - **Speculators** and **arbitrageurs** trade futures to profit from price fluctuations.  
+  - **Speculators** trade futures to profit from price fluctuations.  
 
 - **Trading Conventions**:  
-  - Futures prices are determined through **bidding and asking** on exchanges, where traders compete to buy or sell contracts.  
-  - All transactions incur **exchange fees** and require an initial **margin deposit** to ensure contract fulfillment.  
-  - The **exchange** acts as an intermediary, ensuring both parties meet their contractual obligations.  
-  - Most actively traded futures contracts are **standardized** by the exchange to ensure liquidity and uniformity.  
+  - Futures prices are determined through *bidding and asking* on exchanges, where traders compete to buy or sell contracts.  
+  - All transactions incur *exchange fees* and require an initial *margin deposit* to ensure contract fulfillment.  
+  - The *exchange* acts as an intermediary, ensuring both parties meet their contractual obligations.  
+  - Most actively traded futures contracts are *standardized* by the exchange to ensure liquidity and uniformity.  
 
 {% include notification.html 
 status="is-info is-light"
 icon="false"
 message="
 ## Key Features of Futures Contracts
-- **Standardization**: Futures contracts are standardized, meaning they have specific terms regarding the asset, 
-  quantity, quality, settlement type, expiry date, delivery location, and etc.
 - **Obligation**: Both parties in a futures contract are obligated to fulfill the contract at 
   expiration.
 - **Exchange Traded**: Futures contracts are typically traded on organized exchanges, such as the [CME Group](https://www.cmegroup.com), which 
   provide a transparent and regulated marketplace.
+- **Standardization**: Futures contracts are standardized, meaning they have specific terms regarding the asset, 
+  quantity, quality, settlement type, expiry date, delivery location, and etc.
+- **Hedging**: Commodity users and producers use futures to hedge against price movement.
 - **Leverage**: Traders can control a large contract value with a relatively small initial investment (margin).
 " %}
 
