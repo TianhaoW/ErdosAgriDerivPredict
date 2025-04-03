@@ -4,6 +4,7 @@ title: Futures Trading 101
 subtitle: An Introduction
 menubar_toc: true
 toc_title: Table of Contents
+permalink: /pages/intro
 ---
 ## Future Contracts Overview
 - **Definition**: A *futures contract* is a legally binding agreement to buy or sell an asset at a predetermined 
