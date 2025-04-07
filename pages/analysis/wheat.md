@@ -49,7 +49,7 @@ For a more detailed contract specification, see [SRW WHEAT FUTURES - CONTRACT SP
 
 
 
-## Title Placeholder (TODO)
+## Market Data Analysis
 
 {% include media-block.html 
     image="/imgs/wheat/price.png"
@@ -92,3 +92,60 @@ For a more detailed contract specification, see [SRW WHEAT FUTURES - CONTRACT SP
   This leads to a temporary spike in trading volume before the last trading day.
 "
 %}
+
+{% include media-block.html 
+    image="/imgs/wheat/seasonality.png"
+    position="right"
+    text="
+### Spectral Analysis of Log Returns
+- **No clear seasonality** – Fourier and periodogram analysis show no dominant cycles in the log returns of wheat 
+  futures.
+- **Lack of sharp peaks** – The periodogram exhibits no strong periodic components, suggesting price changes are not 
+  driven by regular seasonal patterns.
+- **Market randomness confirmed** – This supports the view that wheat futures prices are influenced more by 
+  fundamentals than by predictable cycles.
+"
+%}
+
+## Supply and Demand Analysis
+{% include media-block.html 
+    image="/imgs/wheat/production_stock.png"
+    position="left"
+    text="
+### Wheat Production & Stocks
+- **Consistent drawdown (2018–2023)** – Wheat stocks declined steadily across all four USDA reporting quarters (March, 
+  June, September, December), reflecting tighter supply conditions and strong demand.
+- **Stock recovery begins in 2024** – Starting in 2024, wheat stocks began to rise, reversing a six-year downward 
+  trend. By March 2025, wheat stocks reached their **highest level in four years**.
+- **Winter wheat production rebound** – The recovery in stocks is supported by an increase in winter wheat production, 
+  which began in 2024, driven by expanded planted acreage and improved yields. See this [report](https://www.ers.usda.gov/data-products/charts-of-note/chart-detail?chartId=110909).
+"
+%}
+
+{% include media-block.html 
+    image="/imgs/wheat/production_2024_state.png"
+    position="right"
+    text="
+### Winter Wheat Production by Region
+- **Winter wheat concentrated in the Plains** – Top producers include **Kansas (22.8%)**, **Washington (9.1%)**, 
+  **Oklahoma (8.0%)**, and **Montana (6.8%)**, reflecting the dominance of winter wheat in the Central and Great Plains.
+- **SRW wheat centered in the Midwest and East** – Leading states are **Illinois (17.4%)**, **Ohio (11.5%)**, 
+  **Missouri (10.4%)**, and **Kentucky (8.5%)**, where SRW wheat thrives in more humid climates.
+- **Focus on key producers for modeling** – We will use weather and crop condition data from these 
+  major producing states to build our AI model.
+"
+%}
+
+{% include media-block.html 
+    image="/imgs/wheat/condition.png"
+    position="left"
+    text="
+### Weekly Wheat Crop Condition Analysis
+- **Crop condition weakly anticipates price movement** – The weekly change in SRW wheat condition has a **–0.05 
+  correlation with next-day futures returns**, which strengthens to **–0.1 over the next 3 trading days**, suggesting that price reacts gradually to crop condition updates.
+- **Negative correlation aligns with supply expectations** – This inverse relationship makes intuitive sense: 
+  improving crop health signals higher expected supply, which can put downward pressure on futures prices.
+"
+%}
+
+
