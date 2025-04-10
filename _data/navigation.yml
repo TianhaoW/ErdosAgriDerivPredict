@@ -1,11 +1,17 @@
 - name: Futures 101
   link: /pages/intro
-  dropdown:
-    - name: Placeholder
-      link: /
-    - name: Plcaeholder
-      link: /
 - name: Market Overview
   link: /pages/analysis
+  dropdown:
+    - name: Wheat
+      link: /pages/analysis/wheat
+    - name: Corn
+      link: /pages/analysis/corn
+    - name: Soybeans
+      link: /pages/analysis/soybeans
+    - name: Sugar
+      link: /pages/analysis/sugar
+    - name: Sunflower
+      link: /pages/analysis/sunflower
 - name: AI Forecasting
   link: /pages/prediction

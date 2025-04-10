@@ -1,0 +1,42 @@
+height: is-medium
+style: has-background-light
+items:
+  - title: "Wheat Futures Analysis"
+    description: "Explore price trends, market volatility, and historical performance of wheat futures."
+    img: "/imgs/wheat/wheat.png"
+    call_to_action_name: "View Analysis"
+    call_to_action_link: "/pages/analysis/wheat"
+    call_to_action_secondary_name: "Open in Colab"
+    call_to_action_secondary_link: "https://colab.research.google.com/github/TianhaoW/ErdosAgriDerivPredict/blob/main/notebooks/wheatEDA.ipynb"
+
+  - title: "Corn Futures Analysis"
+    description: "Analyze corn futures price movements, volatility trends, and market insights."
+    img: "/imgs/corn/corn.png"
+    call_to_action_name: "View Analysis"
+    call_to_action_link: "/pages/analysis/corn"
+    call_to_action_secondary_name: "Open in Colab"
+    call_to_action_secondary_link: "https://colab.research.google.com/github/your-repo/corn_analysis.ipynb"
+
+  - title: "Soybeans Futures Analysis"
+    description: "Uncover key trends and patterns in soybean futures with detailed market data."
+    img: "/imgs/soybeans/soybeans.png"
+    call_to_action_name: "View Analysis"
+    call_to_action_link: "/pages/analysis/soybeans"
+    call_to_action_secondary_name: "Open in Colab"
+    call_to_action_secondary_link: "https://colab.research.google.com/github/your-repo/soybeans_analysis.ipynb"
+
+  - title: "Sugar Futures Analysis"
+    description: "Examine sugar futures, including price volatility and historical market trends."
+    img: "/imgs/sugar/sugar.png"
+    call_to_action_name: "View Analysis"
+    call_to_action_link: "/pages/analysis/sugar"
+    call_to_action_secondary_name: "Open in Colab"
+    call_to_action_secondary_link: "https://colab.research.google.com/github/your-repo/sugar_analysis.ipynb"
+
+  - title: "Sunflower Futures Analysis"
+    description: "Analyze sunflower futures market trends, including price fluctuations and volatility insights."
+    img: "/imgs/sunflower/sunflower.png"
+    call_to_action_name: "View Analysis"
+    call_to_action_link: "/pages/analysis/sunflower"
+    call_to_action_secondary_name: "Open in Colab"
+    call_to_action_secondary_link: "https://colab.research.google.com/github/your-repo/sugar_analysis.ipynb"

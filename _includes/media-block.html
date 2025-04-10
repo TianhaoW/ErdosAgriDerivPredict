@@ -1,0 +1,40 @@
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        {% if include.position == "right" %}
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    {{ include.text | markdownify }}
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="{{ include.image | relative_url }}" alt="Chart" onclick="openModal('{{ include.image | relative_url }}')">
+                </figure>
+            </div>
+        {% else %}
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="{{ include.image | relative_url }}" alt="Chart" onclick="openModal('{{ include.image | relative_url }}')">
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    {{ include.text | markdownify }}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart">
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>

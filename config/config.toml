@@ -2,8 +2,8 @@
 ########################################################
 # this contains all the API keys to obtain data.
 [api]
-USDA_api_key = ""
-NCDC_api_key = ""
+USDA_api_key = "7BACC84D-4D4E-31CE-9828-0EAF5D6338DB"
+NCDC_api_key = "sAfDxhRkTzDkPBjtktOThBJjnCfzAtax"
 
 ########################################################
 # this contains the standard setup of the train-valid-test split
