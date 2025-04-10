@@ -28,7 +28,7 @@ def latitudeLongitudeToPixel(src, lat, lon, m):
     
     # print(f"Projected X: {x_proj}, Projected Y: {y_proj}")
     row,col = rowcol(transform, x_proj, y_proj)
-    return (row//m, col//m)
+    return (int(row//m), int(col//m))
 
 
 import heapq
@@ -47,7 +47,6 @@ def getLatLonClimateFromMatrixAndList(arr, k, stationDict, rmax = 9999999):
             for (i,j) in indexShift:
                 a1 = a+i
                 b1 = b+j
-
                 #bounds check
                 if a1 < 0 or a1 >= len(arr) or b1 < 0 or b1 >= len(arr[0]):
                     continue
@@ -334,3 +333,140 @@ class bigArrayParser:
                     climate[(round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))] += area
             climate_area_data_over_time[date] = climate
         return climate_area_data_over_time
+
+def get_projections(cadot):
+    proj = {}
+    for date in cadot:
+        dictArr = [{} for i in range(5)]
+        for k in cadot[date].keys():
+            area = cadot[date][k]
+            for i in range(5):
+                if k[i] not in dictArr[i].keys():
+                    dictArr[i][k[i]] = 0
+                dictArr[i][k[i]] += area
+        proj[date] = dictArr
+    return proj
+    
+def get_weather_features(proj):
+    """
+    Given a dictionary `proj` where each key is a date and each value is a list
+    of five dictionaries corresponding to:
+      0: average_temperature_distribution,
+      1: maximum_temperature_distribution,
+      2: minimum_temperature_distribution,
+      3: precipitation_distribution,
+      4: snow_distribution,
+    this function computes weighted statistics for each distribution and
+    returns a nested dictionary of features.
+    """
+    features = {}
+    for date in proj:
+        average_temperature_distribution = proj[date][0]
+        maximum_temperature_distribution = proj[date][1]
+        minimum_temperature_distribution = proj[date][2]
+        precipitation_distribution = proj[date][3]
+        snow_distribution = proj[date][4]
+        
+        # Compute stats for each distribution using compute_weighted_stats()
+        avg_stats = compute_weighted_stats(average_temperature_distribution)
+        max_stats = compute_weighted_stats(maximum_temperature_distribution)
+        min_stats = compute_weighted_stats(minimum_temperature_distribution)
+        prec_stats = compute_weighted_stats(precipitation_distribution)
+        snow_stats = compute_weighted_stats(snow_distribution)
+        
+        # Create a nested dictionary for the current date with descriptive keys
+        features[date] = {
+            "average_temperature_distribution_weighted_mean": avg_stats["Weighted Mean"],
+            "average_temperature_distribution_weighted_variance": avg_stats["Weighted Variance"],
+            "average_temperature_distribution_weighted_std": avg_stats["Weighted Standard Deviation"],
+            "average_temperature_distribution_weighted_skewness": avg_stats["Weighted Skewness"],
+            "average_temperature_distribution_weighted_kurtosis": avg_stats["Weighted Kurtosis"],
+            "average_temperature_distribution_weighted_median": avg_stats["Weighted Median"],
+            "average_temperature_distribution_min_value": avg_stats["Min Value"],
+            "average_temperature_distribution_max_value": avg_stats["Max Value"],
+            
+            "maximum_temperature_distribution_weighted_mean": max_stats["Weighted Mean"],
+            "maximum_temperature_distribution_weighted_variance": max_stats["Weighted Variance"],
+            "maximum_temperature_distribution_weighted_std": max_stats["Weighted Standard Deviation"],
+            "maximum_temperature_distribution_weighted_skewness": max_stats["Weighted Skewness"],
+            "maximum_temperature_distribution_weighted_kurtosis": max_stats["Weighted Kurtosis"],
+            "maximum_temperature_distribution_weighted_median": max_stats["Weighted Median"],
+            "maximum_temperature_distribution_min_value": max_stats["Min Value"],
+            "maximum_temperature_distribution_max_value": max_stats["Max Value"],
+            
+            "minimum_temperature_distribution_weighted_mean": min_stats["Weighted Mean"],
+            "minimum_temperature_distribution_weighted_variance": min_stats["Weighted Variance"],
+            "minimum_temperature_distribution_weighted_std": min_stats["Weighted Standard Deviation"],
+            "minimum_temperature_distribution_weighted_skewness": min_stats["Weighted Skewness"],
+            "minimum_temperature_distribution_weighted_kurtosis": min_stats["Weighted Kurtosis"],
+            "minimum_temperature_distribution_weighted_median": min_stats["Weighted Median"],
+            "minimum_temperature_distribution_min_value": min_stats["Min Value"],
+            "minimum_temperature_distribution_max_value": min_stats["Max Value"],
+            
+            "precipitation_distribution_weighted_mean": prec_stats["Weighted Mean"],
+            "precipitation_distribution_weighted_variance": prec_stats["Weighted Variance"],
+            "precipitation_distribution_weighted_std": prec_stats["Weighted Standard Deviation"],
+            "precipitation_distribution_weighted_skewness": prec_stats["Weighted Skewness"],
+            "precipitation_distribution_weighted_kurtosis": prec_stats["Weighted Kurtosis"],
+            "precipitation_distribution_weighted_median": prec_stats["Weighted Median"],
+            "precipitation_distribution_min_value": prec_stats["Min Value"],
+            "precipitation_distribution_max_value": prec_stats["Max Value"],
+            
+            "snow_distribution_weighted_mean": snow_stats["Weighted Mean"],
+            "snow_distribution_weighted_variance": snow_stats["Weighted Variance"],
+            "snow_distribution_weighted_std": snow_stats["Weighted Standard Deviation"],
+            "snow_distribution_weighted_skewness": snow_stats["Weighted Skewness"],
+            "snow_distribution_weighted_kurtosis": snow_stats["Weighted Kurtosis"],
+            "snow_distribution_weighted_median": snow_stats["Weighted Median"],
+            "snow_distribution_min_value": snow_stats["Min Value"],
+            "snow_distribution_max_value": snow_stats["Max Value"],
+        }
+    return features
+        
+import numpy as np
+import statsmodels.api as sm
+
+def compute_weighted_stats(data_dict):
+    # Convert dictionary keys and values to numpy arrays
+    values = np.array(list(data_dict.keys()))
+    weights = np.array(list(data_dict.values()))
+    
+    # Use statsmodels to compute weighted statistics (mean, variance, std)
+    weighted_stats = sm.stats.DescrStatsW(values, weights=weights)
+    weighted_mean = weighted_stats.mean
+    weighted_variance = weighted_stats.var
+    weighted_std_dev = weighted_stats.std
+
+    # Compute weighted skewness manually:
+    # Formula: sum(weights * (x - mean)^3) / (sum(weights * (x - mean)^2)^(3/2))
+    mean_centered = values - weighted_mean
+    weighted_skewness = np.sum(weights * mean_centered**3) / (np.sum(weights * mean_centered**2)**(3/2))
+
+    # Compute weighted kurtosis manually:
+    # Formula: sum(weights * (x - mean)^4) / (sum(weights * (x - mean)^2)^2) - 3
+    weighted_kurtosis = np.sum(weights * mean_centered**4) / (np.sum(weights * mean_centered**2)**2) - 3
+
+    # Compute weighted median manually:
+    sorted_indices = np.argsort(values)
+    sorted_values = values[sorted_indices]
+    sorted_weights = weights[sorted_indices]
+    cumulative_weights = np.cumsum(sorted_weights)
+    total_weight = np.sum(sorted_weights)
+    median_index = np.searchsorted(cumulative_weights, total_weight / 2)
+    weighted_median = sorted_values[median_index]
+
+    # Compute min and max values
+    min_val = np.min(values)
+    max_val = np.max(values)
+
+    # Return all computed statistics as a dictionary
+    return {
+        "Weighted Mean": weighted_mean,
+        "Weighted Variance": weighted_variance,
+        "Weighted Standard Deviation": weighted_std_dev,
+        "Weighted Skewness": weighted_skewness,
+        "Weighted Kurtosis": weighted_kurtosis,
+        "Weighted Median": weighted_median,
+        "Min Value": min_val,
+        "Max Value": max_val
+    }
