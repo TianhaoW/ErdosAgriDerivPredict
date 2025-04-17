@@ -14,7 +14,7 @@ Sugar in the United States is primarily derived from two sources: **sugarcane** 
 | Source      | Top States                                                                                                    | Notes                                                                                                    |
 |-------------|---------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|
 | Sugarcane   | Florida, Louisiana, Texas, Hawaii (historical)                                                                | Florida leads (mainly Palm Beach Co.); Louisiana is a strong producer. Hawaii ceased production in 2016. | 
-| Sugar Beets | Minnesota, North Dakota, Michigan, Idaho, Nebraska, Montana, California, Wyoming, Oregon, Washington,Colorado | Beet production is centered in the Upper Midwest, Great Plains, and Pacific Northwest.                   | 
+| Sugar Beets | Minnesota, North Dakota, Michigan, Idaho, Nebraska, Montana, California, Wyoming, Oregon, Washington, Colorado | Beet production is centered in the Upper Midwest, Great Plains, and Pacific Northwest.                   | 
 
 - Sugarcane is grown in the Southern U.S., with Florida and Louisiana as top producers.
 - Sugar beets are cultivated in temperate regions, especially the Upper Midwest and West. 
@@ -41,13 +41,13 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
 - **Cleaning**: Sugar can be an effective agent for removing certain stains from clothing and appliances.
 - **Bioplastics**: Sugar serves as a base material in producing bioplastics, offering a renewable alternative to conventional plastics. 
 
-## Market Analysis
+## Plots of Market Trends
 
 {% include media-block.html 
     image="/imgs/sugar/price.png"
     position="left"
     text="
-### Sugar Closing Price Trends (Historical Perspective)
+### Sugar Futures Closing Price Trends
 
 "%}
 
@@ -55,7 +55,71 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     image="/imgs/sugar/volatility.png"
     position="left"
     text="
-### Sugar 30-Day Rolling Volatility of Closing Price Trends (Historical Perspective)
+### Sugar Futures 30-Day Rolling Volatility of Closing Price Trends
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/MA.png"
+    position="left"
+    text="
+### Sugar Futures Moving Averages of Closing Price Trends
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/vol1.png"
+    position="left"
+    text="
+### Sugar Futures Volume (Historical)
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/vol2.png"
+    position="left"
+    text="
+
+### Sugar Futures Volume (Comparison By Year)
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/vol3.png"
+    position="left"
+    text="
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/price1.png"
+    position="left"
+    text="
+### Another Plot of Sugar Futures Price (Historical)
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/price2.png"
+    position="left"
+    text="
+### Sugar Futures Price (Comparison By Year)
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/log_return.png"
+    position="left"
+    text="
+### Sugar Futures Log Returns
+
+"%}
+
+{% include media-block.html 
+    image="/imgs/sugar/corn.png"
+    position="left"
+    text="
+### Sugar Futures Compared With Corn (Standardized)
 
 "%}
 
