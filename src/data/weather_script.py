@@ -275,10 +275,31 @@ def weightedSum(KNearestLocationDataValue, ll_to_data, days):
     return retval
 
 
+# def heavy_task(x):
+#     print(f"Running {x}", flush=True)
+#     return x * x
+
+
 #src is something like src = "../data/2023_30m_cdls.tif" aka HUGE array
 #m is the downscale factor for the src array
 #cropValue is the "categorization code" here https://www.nass.usda.gov/Research_and_Science/Cropland/sarsfaqs2.php#what.7
-
+from concurrent.futures import ThreadPoolExecutor
+from collections import defaultdict
+from datetime import datetime
+def process_date(date, KNearestLocationData, ll_to_data, start_date2):
+    climate = {}
+    for i in range(len(KNearestLocationData)):
+        area = KNearestLocationData[i][0]
+        retval = weightedSum(KNearestLocationData[i][1], ll_to_data, (date - start_date2).days)
+        if len(retval) == 1:
+            continue
+        maxt, mint, avgt, prcp, snow = retval
+        key = (round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))
+        if key not in climate:
+            climate[key] = area
+        else:
+            climate[key] += area
+    return date, climate
 class bigArrayParser:
     def __init__(self, src, m, cropValue, arr = None):
         self.src = rasterio.open(src)
@@ -296,12 +317,12 @@ class bigArrayParser:
     #for each nonzero amount of 30 by 30 meters of land of cropValue within r pixel radius of some station in a list in lonlatlistlist, 
     # it returns how many 30 by 30 meters of crop production there is, along with k pairs (distance to station, lonlat of station) 
     # associated to the k nearest stations. The algorithm downsamples by a factor of m from src.
-    def getKNearestLocations(self, lonlatlistlist, k, r):
-        retval = []
-        for i in range(len(lonlatlistlist)):
-            dat = getKNearestLocationsHelper(lonlatlistlist[i], k, r, m)
-            retval.append(dat)
-        return retval
+    # def getKNearestLocations(self, lonlatlistlist, k, r):
+    #     retval = []
+    #     for i in range(len(lonlatlistlist)):
+    #         dat = self.getKNearestLocationsHelper(lonlatlistlist[i], k, r, m)
+    #         retval.append(dat)
+    #     return retval
 
     # weatherStations is a list of tuples (lat, lon)
     def getKNearestLocationsHelper(self, weatherStations, k, rmax, m):
@@ -312,26 +333,42 @@ class bigArrayParser:
             stationDict[latitudeLongitudeToPixel(self.src, lat, lon, m)] = (lon, lat)
         results = getLatLonClimateFromMatrixAndList(self.arr, k, stationDict, rmax)
         return results
+    
+    # Assuming these are already defined: 
+    # daterange, start_date2, end_date2, KNearestLocationData, ll_to_data, weightedSum
     def get_area_with_climate(self, k, r, m, state, start_date, end_date):
 
-        climate_area_data_over_time={}
         ll_to_data = climate_data_to_dict(get_climate_data(state, start_date, end_date))
         KNearestLocationData = self.getKNearestLocationsHelper(list(ll_to_data.keys()), k, r, m)
         start_date2 = datetime.fromisoformat(start_date)
         end_date2 = datetime.fromisoformat(end_date)
-        for date in daterange(start_date2, end_date2):
-            climate = {}
-            for i in range(len(KNearestLocationData)):
-                area = KNearestLocationData[i][0]
-                retval = weightedSum(KNearestLocationData[i][1], ll_to_data, (date-start_date2).days)
-                if len(retval) == 1:
-                    continue
-                maxt, mint, avgt, prcp, snow = retval
-                if (round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1)) not in climate.keys():
-                    climate[(round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))] = area
-                else:
-                    climate[(round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))] += area
-            climate_area_data_over_time[date] = climate
+        print("hi")
+        climate_area_data_over_time = {}
+    
+        with ThreadPoolExecutor() as executor:
+            futures = [
+                executor.submit(process_date, date, KNearestLocationData, ll_to_data, start_date2)
+                for date in daterange(start_date2, end_date2)
+            ]
+            for future in futures:
+                date, climate = future.result()
+                print(date, flush=True)
+                climate_area_data_over_time[date] = climate
+
+        # for date in daterange(start_date2, end_date2):
+        #     print(date)
+        #     climate = {}
+        #     for i in range(len(KNearestLocationData)):
+        #         area = KNearestLocationData[i][0]
+        #         retval = weightedSum(KNearestLocationData[i][1], ll_to_data, (date-start_date2).days)
+        #         if len(retval) == 1:
+        #             continue
+        #         maxt, mint, avgt, prcp, snow = retval
+        #         if (round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1)) not in climate.keys():
+        #             climate[(round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))] = area
+        #         else:
+        #             climate[(round(maxt, 1), round(mint, 1), round(avgt, 1), round(prcp, 1), round(snow, 1))] += area
+        #     climate_area_data_over_time[date] = climate
         return climate_area_data_over_time
 
 def get_projections(cadot):
@@ -346,7 +383,27 @@ def get_projections(cadot):
                 dictArr[i][k[i]] += area
         proj[date] = dictArr
     return proj
-    
+def process_date_for_projection(date, cadot):
+    dictArr = [{} for _ in range(5)]
+    for k, area in cadot[date].items():
+        for i in range(5):
+            if k[i] not in dictArr[i]:
+                dictArr[i][k[i]] = 0
+            dictArr[i][k[i]] += area
+    return date, dictArr
+
+def get_projections_multithreaded(cadot):
+    proj = {}
+
+    with ThreadPoolExecutor() as executor:
+        futures = [executor.submit(process_date_for_projection, date, cadot) for date in cadot]
+        for future in futures:
+            date, dictArr = future.result()
+            print(date)
+            proj[date] = dictArr
+
+    return proj
+
 def get_weather_features(proj):
     """
     Given a dictionary `proj` where each key is a date and each value is a list
@@ -470,3 +527,75 @@ def compute_weighted_stats(data_dict):
         "Min Value": min_val,
         "Max Value": max_val
     }
+
+from concurrent.futures import ThreadPoolExecutor
+
+def process_weather_for_date(date, distributions):
+    average_temperature_distribution = distributions[0]
+    maximum_temperature_distribution = distributions[1]
+    minimum_temperature_distribution = distributions[2]
+    precipitation_distribution = distributions[3]
+    snow_distribution = distributions[4]
+
+    avg_stats = compute_weighted_stats(average_temperature_distribution)
+    max_stats = compute_weighted_stats(maximum_temperature_distribution)
+    min_stats = compute_weighted_stats(minimum_temperature_distribution)
+    prec_stats = compute_weighted_stats(precipitation_distribution)
+    snow_stats = compute_weighted_stats(snow_distribution)
+
+    return date, {
+        "average_temperature_distribution_weighted_mean": avg_stats["Weighted Mean"],
+        "average_temperature_distribution_weighted_variance": avg_stats["Weighted Variance"],
+        "average_temperature_distribution_weighted_std": avg_stats["Weighted Standard Deviation"],
+        "average_temperature_distribution_weighted_skewness": avg_stats["Weighted Skewness"],
+        "average_temperature_distribution_weighted_kurtosis": avg_stats["Weighted Kurtosis"],
+        "average_temperature_distribution_weighted_median": avg_stats["Weighted Median"],
+        "average_temperature_distribution_min_value": avg_stats["Min Value"],
+        "average_temperature_distribution_max_value": avg_stats["Max Value"],
+
+        "maximum_temperature_distribution_weighted_mean": max_stats["Weighted Mean"],
+        "maximum_temperature_distribution_weighted_variance": max_stats["Weighted Variance"],
+        "maximum_temperature_distribution_weighted_std": max_stats["Weighted Standard Deviation"],
+        "maximum_temperature_distribution_weighted_skewness": max_stats["Weighted Skewness"],
+        "maximum_temperature_distribution_weighted_kurtosis": max_stats["Weighted Kurtosis"],
+        "maximum_temperature_distribution_weighted_median": max_stats["Weighted Median"],
+        "maximum_temperature_distribution_min_value": max_stats["Min Value"],
+        "maximum_temperature_distribution_max_value": max_stats["Max Value"],
+
+        "minimum_temperature_distribution_weighted_mean": min_stats["Weighted Mean"],
+        "minimum_temperature_distribution_weighted_variance": min_stats["Weighted Variance"],
+        "minimum_temperature_distribution_weighted_std": min_stats["Weighted Standard Deviation"],
+        "minimum_temperature_distribution_weighted_skewness": min_stats["Weighted Skewness"],
+        "minimum_temperature_distribution_weighted_kurtosis": min_stats["Weighted Kurtosis"],
+        "minimum_temperature_distribution_weighted_median": min_stats["Weighted Median"],
+        "minimum_temperature_distribution_min_value": min_stats["Min Value"],
+        "minimum_temperature_distribution_max_value": min_stats["Max Value"],
+
+        "precipitation_distribution_weighted_mean": prec_stats["Weighted Mean"],
+        "precipitation_distribution_weighted_variance": prec_stats["Weighted Variance"],
+        "precipitation_distribution_weighted_std": prec_stats["Weighted Standard Deviation"],
+        "precipitation_distribution_weighted_skewness": prec_stats["Weighted Skewness"],
+        "precipitation_distribution_weighted_kurtosis": prec_stats["Weighted Kurtosis"],
+        "precipitation_distribution_weighted_median": prec_stats["Weighted Median"],
+        "precipitation_distribution_min_value": prec_stats["Min Value"],
+        "precipitation_distribution_max_value": prec_stats["Max Value"],
+
+        "snow_distribution_weighted_mean": snow_stats["Weighted Mean"],
+        "snow_distribution_weighted_variance": snow_stats["Weighted Variance"],
+        "snow_distribution_weighted_std": snow_stats["Weighted Standard Deviation"],
+        "snow_distribution_weighted_skewness": snow_stats["Weighted Skewness"],
+        "snow_distribution_weighted_kurtosis": snow_stats["Weighted Kurtosis"],
+        "snow_distribution_weighted_median": snow_stats["Weighted Median"],
+        "snow_distribution_min_value": snow_stats["Min Value"],
+        "snow_distribution_max_value": snow_stats["Max Value"],
+    }
+
+def get_weather_features_multithreaded(proj):
+    features = {}
+    with ThreadPoolExecutor() as executor:
+        futures = [executor.submit(process_weather_for_date, date, proj[date]) for date in proj]
+        for future in futures:
+            date, data = future.result()
+            print(date)
+            features[date] = data
+    return features
