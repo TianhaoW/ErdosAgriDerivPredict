@@ -48,14 +48,14 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     position="left"
     text="
 ### Sugar Closing Price Trends (Historical Perspective)
-Your text here. Here are some examples. 
-- **Bold Text**, 
-- inline math $\int_a^b$
-- [external link example](https://github.com)
 
-Block math 
+"%}
 
-$$\lim_{x\rightarrow\infty} f_n(x)$$
+{% include media-block.html 
+    image="/imgs/sugar/volatility.png"
+    position="left"
+    text="
+### Sugar 30-Day Rolling Volatility of Closing Price Trends (Historical Perspective)
 
 "%}
 
