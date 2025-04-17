@@ -17,11 +17,11 @@ items:
     call_to_action_secondary_name: "Open in Colab"
     call_to_action_secondary_link: "https://colab.research.google.com/github/TianhaoW/ErdosAgriDerivPredict/blob/main/notebooks/cornEDA.ipynb"
 
-  - title: "Soybeans Futures Analysis"
-    description: "Uncover key trends and patterns in soybean futures with detailed market data."
-    img: "/imgs/soybeans/soybeans.png"
+  - title: "Orange Futures Analysis"
+    description: "Uncover key trends and patterns in Florida orange futures with detailed market data."
+    img: "/imgs/orange/orange.png"
     call_to_action_name: "View Analysis"
-    call_to_action_link: "/pages/analysis/soybeans"
+    call_to_action_link: "/pages/analysis/orange"
     call_to_action_secondary_name: "Open in Colab"
     call_to_action_secondary_link: "https://colab.research.google.com/github/your-repo/soybeans_analysis.ipynb"
 
