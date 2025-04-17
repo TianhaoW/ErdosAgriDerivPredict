@@ -65,7 +65,7 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     image="/imgs/sugar/volatility.png"
     position="left"
     text="
-### Sugar Futures 30-Day Rolling Volatility of Closing Price Trends
+### 30-Day Rolling Volatility of Closing Price
 
 "%}
 
@@ -73,7 +73,7 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     image="/imgs/sugar/MA.png"
     position="left"
     text="
-### Sugar Futures Moving Averages of Closing Price Trends
+### Moving Averages of Closing Price
 
 "%}
 
@@ -81,7 +81,7 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     image="/imgs/sugar/vol1.png"
     position="left"
     text="
-### Sugar Futures Volume (Historical)
+### Single Timeline of Volume
 
 "%}
 
@@ -90,7 +90,7 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     position="left"
     text="
 
-### Sugar Futures Volume (Comparison By Year)
+### By-Year Volume
 
 "%}
 
@@ -99,21 +99,7 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     position="left"
     text="
 
-"%}
-
-{% include media-block.html 
-    image="/imgs/sugar/price1.png"
-    position="left"
-    text="
-### Another Plot of Sugar Futures Price (Historical)
-
-"%}
-
-{% include media-block.html 
-    image="/imgs/sugar/price2.png"
-    position="left"
-    text="
-### Sugar Futures Price (Comparison By Year)
+### Volume based on Days Till Expiry
 
 "%}
 
@@ -129,7 +115,7 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     image="/imgs/sugar/corn.png"
     position="left"
     text="
-### Sugar Futures Compared With Corn (Standardized)
+### Comparison of Sugar and Corn Futures (Standardized)
 
 "%}
 
