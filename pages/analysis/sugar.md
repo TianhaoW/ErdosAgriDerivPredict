@@ -44,10 +44,17 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
 ## Plots of Market Trends
 
 {% include media-block.html 
-    image="/imgs/sugar/price.png"
+    image="/imgs/sugar/price1.png"
     position="left"
     text="
-### Sugar Futures Closing Price Trends
+
+    image="/imgs/sugar/price2.png"
+    position="left"
+
+### Sugar Futures Price Trends
+
+Single Timeline Closing Price
+By-Year Closing Price 
 
 "%}
 
