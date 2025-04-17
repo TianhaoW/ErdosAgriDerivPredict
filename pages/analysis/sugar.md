@@ -32,7 +32,6 @@ The history of sugar production in the U.S. is intertwined with significant soci
 - **Annexation of Hawaii**: Economic interests tied to sugar production played a role in the U.S. annexation of Hawaii in the late 19th century.
 " %}
 
-
 ### Non-Food Applications of Sugar
 Beyond its role in food and beverages, sugar serves various industrial and commercial purposes:
 
@@ -42,7 +41,24 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
 - **Cleaning**: Sugar can be an effective agent for removing certain stains from clothing and appliances.
 - **Bioplastics**: Sugar serves as a base material in producing bioplastics, offering a renewable alternative to conventional plastics. 
 
-## Market Analysis (or Other title you want)
+## Market Analysis
+
+{% include media-block.html 
+    image="/imgs/sugar/price.png"
+    position="left"
+    text="
+### Sugar Closing Price Trends (Historical Perspective)
+Your text here. Here are some examples. 
+- **Bold Text**, 
+- inline math $\int_a^b$
+- [external link example](https://github.com)
+
+Block math 
+
+$$\lim_{x\rightarrow\infty} f_n(x)$$
+
+"%}
+
 Use the following to create media block. 
 
 image = "address to your plot". Please use 1000*560 size picture (plt.figure(10,5.6)) and use plt.save_fig("../imgs/sugar/name") to save your plot
