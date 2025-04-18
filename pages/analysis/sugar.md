@@ -54,8 +54,10 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
 
 {% include media-block.html 
     image="/imgs/sugar/price2.png"
-    position="left"
+    position="right"
     text="
+
+    There are low points such as the period leading up to 2008, 2016, and 2020 which align with certain global recessions.
 
 ### By-Year Closing Price 
 
@@ -65,13 +67,15 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     image="/imgs/sugar/volatility.png"
     position="left"
     text="
+
+    There is a price drop around the 125th day which may correspond to the expiry of Sugar No. 16 contracts in April.
 ### 30-Day Rolling Volatility of Closing Price
 
 "%}
 
 {% include media-block.html 
     image="/imgs/sugar/MA.png"
-    position="left"
+    position="right"
     text="
 ### Moving Averages of Closing Price
 
@@ -92,14 +96,18 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
 
 ### By-Year Volume
 
+Delivery months are January, March, May, July, September, November and the last trading days are on the 8th day of the prior month. There appear to be spikes in volume around these times.
+
 "%}
 
 {% include media-block.html 
     image="/imgs/sugar/vol3.png"
-    position="left"
+    position="right"
     text="
 
 ### Volume based on Days Till Expiry
+
+Low volume near day of expiry until on the last trading day, there is a spike as traders clear their positions.
 
 "%}
 
@@ -109,13 +117,17 @@ Beyond its role in food and beverages, sugar serves various industrial and comme
     text="
 ### Sugar Futures Log Returns
 
+Empirically, the log returns seem normally distributed with mean 0.
+
 "%}
 
 {% include media-block.html 
     image="/imgs/sugar/corn.png"
-    position="left"
+    position="right"
     text="
 ### Comparison of Sugar and Corn Futures (Standardized)
+
+Since corn syrup is a widely used sweetener, we plot the two together. Very roughly, it does seem like the shape of the curve for sugar is ahead of the one for corn. E.g. one of the minima for sugar is near the end of 2023 while a similar minimum for corn occurs in February of 2024.
 
 "%}
 
