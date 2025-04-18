@@ -118,6 +118,7 @@ Low volume near day of expiry until on the last trading day, there is a spike as
     image="/imgs/sugar/log_return.png"
     position="right"
     text="
+
 ### Sugar Futures Log Returns
 
 Empirically, the log returns seem normally distributed with mean 0.
@@ -128,6 +129,7 @@ Empirically, the log returns seem normally distributed with mean 0.
     image="/imgs/sugar/corn.png"
     position="left"
     text="
+    
 ### Comparison of Sugar and Corn Futures (Standardized)
 
 Since corn syrup is a widely used sweetener, we plot the two together. Very roughly, it does seem like the shape of the curve for sugar is ahead of the one for corn. E.g. one of the minima for sugar is near the end of 2023 while a similar minimum for corn occurs in February of 2024.
