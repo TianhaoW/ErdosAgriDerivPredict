@@ -133,26 +133,3 @@ Empirically, the log returns seem normally distributed with mean 0.
 Since corn syrup is a widely used sweetener, we plot the two together. Very roughly, it does seem like the shape of the curve for sugar is ahead of the one for corn. E.g. one of the minima for sugar is near the end of 2023 while a similar minimum for corn occurs in February of 2024.
 
 "%}
-
-Use the following to create media block. 
-
-image = "address to your plot". Please use 1000*560 size picture (plt.figure(10,5.6)) and use plt.save_fig("../imgs/sugar/name") to save your plot
-
-position="left" or "right" depending on if you want the plot on the left or right
-text = "the message in markdown format"
-
-{% include media-block.html 
-    image="/imgs/sugar/price.png"
-    position="left"
-    text="
-### Sugar Price Trends (Historical Perspective)
-Your text here. Here are some examples. 
-- **Bold Text**, 
-- inline math $\int_a^b$
-- [external link example](https://github.com)
-
-Block math 
-
-$$\lim_{x\rightarrow\infty} f_n(x)$$
-
-"%}
