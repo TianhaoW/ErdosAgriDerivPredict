@@ -135,3 +135,14 @@ Empirically, the log returns seem normally distributed with mean 0.
 Since corn syrup is a widely used sweetener, we plot the two together. Very roughly, it does seem like the shape of the curve for sugar is ahead of the one for corn. E.g. one of the minima for sugar is near the end of 2023 while a similar minimum for corn occurs in February of 2024.
 
 "%}
+
+{% include media-block.html 
+    image="/imgs/sugar/pacf.png"
+    position="right"
+    text="
+
+### Partial Autocorrelation of 7-Day Log Returns
+
+As a secondary point of interest, theory of geometric Brownian motion suggests there be spikes in the partial autocorrelation function at days $x \equiv 1 \pmod{7}$, which indeed is observed here.
+
+"%}
