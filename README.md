@@ -25,7 +25,7 @@ In agricultural futures markets, most contracts are **physically settled** rathe
 - The contract holder becomes responsible for **storage costs** and **delivery expenses** from that point onward.  
 
 
-We will analyze the following agricultural commodities. Their production cycles, primary growing regions, global competitors, and futures contract specifications will be detailed in a separate document. *(TODO: Create a separate `.md` file or include this in the EDA section.)*  
+We will analyze the following agricultural commodities. Their production cycles, primary growing regions, global competitors, and futures contract specifications will be detailed in a separate document.
 - **Wheat**  
 - **Soybeans**  
 - **Sugar**  
@@ -59,7 +59,7 @@ We collect data from the following sources:
 
 ---
 
-
+### See the contribution_guide.md for the file structure of this repo.
 
 
  
