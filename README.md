@@ -59,10 +59,6 @@ We collect data from the following sources:
 
 ---
 
-## **Exploratory Data Analysis (EDA) & Baseline Model**  
-
-🔗 **TODO**: Add links to EDA summary  
-
 
 
 
