@@ -10,7 +10,7 @@ ErdosAgriDerivPredict/
 ├── notebooks/               # Jupyter notebooks for exploratory analysis, visualizations, or experiments.
 ├── config/                  # The config.yml file, which controls global setting 
 ├── tests/                   # Unit tests and integration tests.
-├── deliverables/            # Reports required by the Erdos
+├── deliverables/            # Reports/milestones required by the Erdos
 ├── src/
 │   ├── data/                # Scripts for data ingestion, cleaning, and processing.
 │   ├── models/              # Code for building, training, and evaluating models.
