@@ -2,8 +2,8 @@
 ########################################################
 # this contains all the API keys to obtain data.
 [api]
-USDA_api_key = ""
-NCDC_api_key = ""
+USDA_api_key = "7BACC84D-4D4E-31CE-9828-0EAF5D6338DB"
+NCDC_api_key = "sAfDxhRkTzDkPBjtktOThBJjnCfzAtax"
 
 ########################################################
 # this contains the standard setup of the train-valid-test split
@@ -12,6 +12,42 @@ train_start_date = "2014-01-01"
 valid_start_date = "2024-01-01"
 
 ########################################################
-# this contains all the local path information
+# this contains all the path information
 [path]
-local_data_path = ''
+project_root = '../'
+
+########################################################
+[data]
+# wheat, corn, soybean, soyoil, soymeal, sugar 11, orange juice. sugar 11 and orange juice is traded on ICE
+symbols = ['ZW=F', 'ZC=F', 'ZS=F', 'ZL=F', 'ZM=F', 'SB=F', 'OJ=F']
+start_date = "2014-01-01"
+
+########################################################################
+# The following are contract rules for each symbol
+[contracts.ZW]
+months = [3, 5, 7, 9, 12]
+rule = "before_15th"
+
+[contracts.ZC]
+months = [3, 5, 7, 9, 12]
+rule = "before_15th"
+
+[contracts.ZS]
+months = [1, 3, 5, 7, 8, 9, 11]
+rule = "before_15th"
+
+[contracts.ZL]
+months = [1, 3, 5, 7, 8, 9, 10, 12]
+rule = "before_15th"
+
+[contracts.ZM]
+months = [1, 3, 5, 7, 8, 9, 10, 12]
+rule = "before_15th"
+
+[contracts.SB]
+months = [3, 5, 7, 10]
+rule = "last_business_day"
+
+[contracts.OJ]
+months = [1, 3, 5, 7, 9, 11]
+rule = "before_15th"

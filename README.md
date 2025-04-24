@@ -1,36 +1,25 @@
 # **U.S. Agricultural Futures Market Price Prediction**  
 
-## **Overview**  
+## **Overview**
 
-### **Futures Contracts**  
-- **Definition**: A **futures contract** is a legally binding agreement to buy or sell an asset at a predetermined price (**futures price**) on a specific date in the future (**expiry date**).  
+### **What Are Futures Contracts?**  
+A **futures contract** is a standardized agreement to buy or sell an asset at a predetermined price on a specific future date. These contracts are commonly used for hedging or speculation and are traded on regulated exchanges.
 
-- **Market Participants**:  
-  - **Commodity Producers** (e.g., farmers) use futures contracts to hedge against potential losses if prices decline.  
-  - **Commodity Users** (e.g., food manufacturers) buy futures contracts to protect against potential price increases.  
-  - **Speculators** and **arbitrageurs** trade futures to profit from price fluctuations.  
+- **Key Participants**:  
+  - **Producers** hedge against falling prices.  
+  - **Buyers** (e.g., manufacturers) hedge against price increases.  
+  - **Speculators** profit from market movements.
 
-- **Trading Conventions**:  
-  - Futures prices are determined through **bidding and asking** on exchanges, where traders compete to buy or sell contracts.  
-  - All transactions incur **exchange fees** and require an initial **margin deposit** to ensure contract fulfillment.  
-  - The **exchange** acts as an intermediary, ensuring both parties meet their contractual obligations.  
-  - Most actively traded futures contracts are **standardized** by the exchange to ensure liquidity and uniformity.  
+- **Trading Essentials**:  
+  Contracts are traded via **bids and asks**, require **margin deposits**, and involve **exchange fees**. Most are **standardized** for liquidity, with the **exchange** acting as intermediary.
 
-### **Agricultural Futures Markets**  
-Our focus is on **U.S. agricultural futures markets**, primarily traded on the **Chicago Mercantile Exchange (CME)**, the largest and primary agricultural commodities exchange in the U.S.  
+---
 
-In agricultural futures markets, most contracts are **physically settled** rather than **cash settled**. This means:  
-- The seller (writer) of the contract stores the commodity at a **CME-approved warehouse** before the expiry date.  
-- On the expiry date, the contract holder receives a **warehouse receipt**, transferring ownership of the underlying commodity.  
-- The contract holder becomes responsible for **storage costs** and **delivery expenses** from that point onward.  
+### **Focus: U.S. Agricultural Futures**  
+Our project focuses on **agricultural futures** traded on the **Chicago Mercantile Exchange (CME)**. These contracts are typically **physically settled**, meaning:
 
-
-We will analyze the following agricultural commodities. Their production cycles, primary growing regions, global competitors, and futures contract specifications will be detailed in a separate document.
-- **Wheat**  
-- **Soybeans**  
-- **Sugar**  
-- **Corn**  
-- **Sunflower**
+- Sellers deliver a **warehouse receipt** for the commodity at a CME-approved facility.  
+- Buyers assume **ownership**, along with **storage and delivery costs**.
 
 ---
 
@@ -46,20 +35,52 @@ This is a group project for the [Erdos Institute](https://www.erdosinstitute.org
 Due to data limitations, we focus on the **daily closing price** of the **nearest-to-expiry** futures contracts. Our objective is to analyze market trends and develop predictive models for agricultural futures prices.  
 
 ### **Project Stages**  
-✅ **Stage 1:** Collect market data, perform EDA, and build a baseline predictive model using market data alone. *(Completed 🎯)*  
-🔄 **Stage 2:** Incorporate **weather data** for improved forecasting.  
-🚀 **Stage 3:** Use **satellite imagery** (via CNNs or other ML models) to assess crop growth conditions. This may involve classification tasks or using CNNs for feature extraction.  
-📊 **Stage 4:** Analyze **news reports** and **USDA monthly reports** using NLP techniques such as **news classification** and **sentiment analysis**.  
+- ✅ **Stage 1: Market Baseline**  
+  Collected historical market data, performed exploratory data analysis (EDA), and built a baseline model using price and volume data alone.  
+- ✅ **Stage 2: External Feature Integration**  
+  Integrated **weather data** and **USDA agricultural reports** to enhance model performance.  
+- 🚧 **Stage 3: Trading Strategy & Backtesting**  
+  In progress: Developing trading strategies based on model forecasts and conducting **backtesting** to evaluate performance.
 
-### **Data Sources**  
-We collect data from the following sources:  
-1. **[yfinance API](https://pypi.org/project/yfinance/)** – Provides futures market data, including price and volume.  
-2. **[USDA/NASS QuickStats API](https://quickstats.nass.usda.gov/)** – Agricultural production statistics and reports.  
-3. **[Federal Reserve Economic Data (FRED)](https://fred.stlouisfed.org/)** – Macroeconomic indicators such as interest rates and inflation.
+### **Data Sources**
+
+- 📈 **[YFinance API](https://pypi.org/project/yfinance/)** – Daily market data for futures contracts (price, volume).  
+- 🌾 **[USDA/NASS QuickStats API](https://quickstats.nass.usda.gov/)** – Agricultural production and crop condition reports.  
+- ☁️ **[NOAA Weather API](https://www.weather.gov/documentation/services-web-api)**, **[ACIS API](https://www.rcc-acis.org/docs_webservices.html)** – Historical and real-time weather and climate data.  
+- 💵 **[FRED (Federal Reserve Economic Data)](https://fred.stlouisfed.org/)** – Macroeconomic indicators such as interest rates and inflation metrics.
 
 ---
 
-### See the contribution_guide.md for the file structure of this repo.
+## File Structure
+
+```bash
+ErdosAgriDerivPredict/
+├── README.md                # Overview of the project, setup instructions, and usage examples.
+├── LICENSE                  # Project license.
+├── .gitignore               # Files and directories to ignore (e.g., data, environment files).
+├── environment.yml          # Conda environment file or requirements.txt for pip (depending on your setup).
+├──
+├── dataset/                 # The folder for datasets used by the model
+├── notebooks/               # Jupyter notebooks for exploratory analysis, visualizations, or experiments.
+├── config/                  # The config.toml file, which controls global setting for the model
+├── tests/                   # Unit tests and integration tests.
+├── deliverables/            # Reports required by the Erdos
+├── src/
+│   ├── data/                # Scripts for data ingestion, cleaning, and processing.
+│   ├── models/              # Code for building, training, and evaluating models.
+│   ├── utils/               # Utility functions (e.g., logging, configuration handling).
+├──
+├── Gemfile                  # The gems that supports the Github Pages
+├── _config.yml              # The configuration for the Github Pages
+├── index.md                 # The index page of this project
+├── _data/                   # .yml file used by the Github Pages
+├── _includes/               # .html file for website components
+├── _layouts/                # .html file for website layouts
+├── assets/                  # .js and .css file for website scripts and stylesheet
+├── imgs/                    # the images used for the website
+├── pages/                   # .md files for the content of the website
+```
+
 
 
  
