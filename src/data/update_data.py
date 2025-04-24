@@ -35,16 +35,17 @@ def update_market_data():
         df_new = (
             yf.Ticker(symbol)
             .history(start=start_date, end=today + timedelta(days=1))
-            .drop(columns=["Dividends", "Stock Splits"])
+            .drop(columns=["Dividends", "Stock Splits"], errors="ignore")
         )
+
+        df_new.index = df_new.index.date
+        df_new = df_new[df_new.index >= start_date]
 
         if df_new.empty:
             print(f"{symbol}: No new data available.")
             continue
 
         # Format and append
-        df_new.index = df_new.index.date
-
         if file_exists:
             df_existing.index = df_existing.index.date  # Make sure both are same format
             df_combined = pd.concat([df_existing, df_new])
@@ -56,6 +57,8 @@ def update_market_data():
 
         df_combined.to_csv(file_path, index_label="Date")
         print(f"{symbol}: CSV updated with {len(df_new)} new rows.")
+
+# TODO, bug, sometimes
 
 if __name__ == "__main__":
     update_market_data()
