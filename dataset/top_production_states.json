@@ -1,0 +1,288 @@
+{
+  "WHEAT_TOTAL": [
+    {
+      "state": "NORTH DAKOTA",
+      "percentage": 0.1698
+    },
+    {
+      "state": "KANSAS",
+      "percentage": 0.1116
+    },
+    {
+      "state": "MONTANA",
+      "percentage": 0.1028
+    },
+    {
+      "state": "WASHINGTON",
+      "percentage": 0.0627
+    },
+    {
+      "state": "IDAHO",
+      "percentage": 0.0494
+    },
+    {
+      "state": "MINNESOTA",
+      "percentage": 0.0433
+    },
+    {
+      "state": "TEXAS",
+      "percentage": 0.0431
+    },
+    {
+      "state": "COLORADO",
+      "percentage": 0.0393
+    },
+    {
+      "state": "OKLAHOMA",
+      "percentage": 0.038
+    },
+    {
+      "state": "ILLINOIS",
+      "percentage": 0.0376
+    }
+  ],
+  "WHEAT_WINTER": [
+    {
+      "state": "KANSAS",
+      "percentage": 0.162
+    },
+    {
+      "state": "WASHINGTON",
+      "percentage": 0.0761
+    },
+    {
+      "state": "MONTANA",
+      "percentage": 0.069
+    },
+    {
+      "state": "TEXAS",
+      "percentage": 0.0625
+    },
+    {
+      "state": "COLORADO",
+      "percentage": 0.0571
+    },
+    {
+      "state": "OKLAHOMA",
+      "percentage": 0.0552
+    },
+    {
+      "state": "ILLINOIS",
+      "percentage": 0.0546
+    },
+    {
+      "state": "IDAHO",
+      "percentage": 0.0451
+    },
+    {
+      "state": "OHIO",
+      "percentage": 0.0427
+    },
+    {
+      "state": "MICHIGAN",
+      "percentage": 0.0374
+    }
+  ],
+  "WHEAT_SPRING": [
+    {
+      "state": "NORTH DAKOTA",
+      "percentage": 0.5301
+    },
+    {
+      "state": "MONTANA",
+      "percentage": 0.1571
+    },
+    {
+      "state": "MINNESOTA",
+      "percentage": 0.1555
+    },
+    {
+      "state": "IDAHO",
+      "percentage": 0.0645
+    },
+    {
+      "state": "SOUTH DAKOTA",
+      "percentage": 0.0557
+    },
+    {
+      "state": "WASHINGTON",
+      "percentage": 0.0371
+    }
+  ],
+  "WHEAT_DURUM": [
+    {
+      "state": "NORTH DAKOTA",
+      "percentage": 0.5394
+    },
+    {
+      "state": "MONTANA",
+      "percentage": 0.3527
+    },
+    {
+      "state": "ARIZONA",
+      "percentage": 0.0642
+    },
+    {
+      "state": "CALIFORNIA",
+      "percentage": 0.0327
+    },
+    {
+      "state": "IDAHO",
+      "percentage": 0.011
+    }
+  ],
+  "CORN": [
+    {
+      "state": "IOWA",
+      "percentage": 0.1641
+    },
+    {
+      "state": "ILLINOIS",
+      "percentage": 0.1481
+    },
+    {
+      "state": "NEBRASKA",
+      "percentage": 0.1125
+    },
+    {
+      "state": "MINNESOTA",
+      "percentage": 0.0984
+    },
+    {
+      "state": "INDIANA",
+      "percentage": 0.0701
+    },
+    {
+      "state": "SOUTH DAKOTA",
+      "percentage": 0.0556
+    },
+    {
+      "state": "OHIO",
+      "percentage": 0.0438
+    },
+    {
+      "state": "KANSAS",
+      "percentage": 0.0399
+    },
+    {
+      "state": "MISSOURI",
+      "percentage": 0.0365
+    },
+    {
+      "state": "WISCONSIN",
+      "percentage": 0.0359
+    }
+  ],
+  "SOYBEANS": [
+    {
+      "state": "ILLINOIS",
+      "percentage": 0.1557
+    },
+    {
+      "state": "IOWA",
+      "percentage": 0.1375
+    },
+    {
+      "state": "MINNESOTA",
+      "percentage": 0.0838
+    },
+    {
+      "state": "INDIANA",
+      "percentage": 0.0802
+    },
+    {
+      "state": "OHIO",
+      "percentage": 0.0658
+    },
+    {
+      "state": "NEBRASKA",
+      "percentage": 0.064
+    },
+    {
+      "state": "MISSOURI",
+      "percentage": 0.0636
+    },
+    {
+      "state": "SOUTH DAKOTA",
+      "percentage": 0.0535
+    },
+    {
+      "state": "NORTH DAKOTA",
+      "percentage": 0.0525
+    },
+    {
+      "state": "ARKANSAS",
+      "percentage": 0.0382
+    }
+  ],
+  "SUGARBEETS": [
+    {
+      "state": "MINNESOTA",
+      "percentage": 0.3569
+    },
+    {
+      "state": "IDAHO",
+      "percentage": 0.1946
+    },
+    {
+      "state": "NORTH DAKOTA",
+      "percentage": 0.1828
+    },
+    {
+      "state": "MICHIGAN",
+      "percentage": 0.1229
+    },
+    {
+      "state": "NEBRASKA",
+      "percentage": 0.0371
+    },
+    {
+      "state": "CALIFORNIA",
+      "percentage": 0.0314
+    },
+    {
+      "state": "WYOMING",
+      "percentage": 0.0236
+    },
+    {
+      "state": "MONTANA",
+      "percentage": 0.0205
+    },
+    {
+      "state": "COLORADO",
+      "percentage": 0.0168
+    },
+    {
+      "state": "OREGON",
+      "percentage": 0.0106
+    }
+  ],
+  "SUGARCANE": [
+    {
+      "state": "FLORIDA",
+      "percentage": 0.5386
+    },
+    {
+      "state": "LOUISIANA",
+      "percentage": 0.4504
+    },
+    {
+      "state": "TEXAS",
+      "percentage": 0.011
+    }
+  ],
+  "ORANGES_VALENCIA": [
+    {
+      "state": "FLORIDA",
+      "percentage": 0.7944
+    },
+    {
+      "state": "CALIFORNIA",
+      "percentage": 0.1916
+    },
+    {
+      "state": "TEXAS",
+      "percentage": 0.014
+    }
+  ]
+}

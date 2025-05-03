@@ -10,7 +10,11 @@ def parse_config(config_path = CONFIG_PATH):
     # Resolve project_root relative to the config file location
     raw_root = config["path"]["project_root"]
     project_root = (CONFIG_PATH.parent / raw_root).resolve()
-
     config["path"]["project_root"] = project_root
+
+
+    cdl_path = (CONFIG_PATH.parent / config["data"]["raw_cdl_path"]).resolve()
+    config['data']['raw_cdl_path'] = cdl_path
+
 
     return config

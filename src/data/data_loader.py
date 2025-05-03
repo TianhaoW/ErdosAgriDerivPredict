@@ -1,6 +1,7 @@
 import pandas as pd
 import requests
 import yfinance as yf
+import datetime
 from src.data.preprocess import extend_market_data
 from src.utils.config_tool import parse_config
 
@@ -69,6 +70,75 @@ class DataLoader:
         data = ticker.history(start=start_date, end=end_date).drop(['Dividends', 'Stock Splits'], axis=1)
         return extend_market_data(data) if extended else data
 
+    def get_usda_data(self, commodity: str, start_year: int, params: dict, raw: bool = False) -> pd.DataFrame | None:
+        # the following are base params
+        full_params = {
+            'key': config['api']['USDA_api_key'],
+            'commodity_desc': commodity,
+            'year__GE': start_year,
+            "format": "JSON",
+        }
+        full_params.update(params)
+
+        response = requests.get(_USDA_url, params=full_params)
+
+        # If exceeds the data limit, we get the data year by year instead
+        if response.status_code == 413:
+            print(f"Response too large for {commodity}. Switching to year-by-year download.")
+
+            all_years_data = []
+
+            current_year = datetime.date.today().year
+            for year in range(start_year, current_year + 1):
+                print(f"Fetching {commodity} - {year}...")
+                year_params = full_params.copy()
+                year_params.pop('year__GE', None)  # remove year__GE
+                year_params['year'] = year  # replace with exact year
+
+                try:
+                    year_response = requests.get(_USDA_url, params=year_params)
+                    if year_response.status_code == 200:
+                        year_data = year_response.json()
+                        if "data" in year_data:
+                            year_df = pd.DataFrame(year_data["data"])
+                            if not year_df.empty:
+                                all_years_data.append(year_df)
+                    else:
+                        print(f"Warning: Failed to fetch {commodity} - {year}. Status {year_response.status_code}")
+                except Exception as e:
+                    print(f"Exception during fetching {commodity} - {year}: {e}")
+
+            if all_years_data:
+                df = pd.concat(all_years_data, ignore_index=True)
+            else:
+                print(f"No data found for {commodity} from {start_year} onward.")
+                return None
+
+        elif response.status_code != 200:
+            print(f"Error: {response.status_code}, {response.text}")
+            return None
+
+        else:
+            data = response.json()
+            df = pd.DataFrame(data['data'])
+
+        if raw:
+            return df
+        # else, light cleaning of the data
+        if "year" in df.columns:
+            df["year"] = pd.to_numeric(df["year"], errors="coerce")
+        if "Value" in df.columns:
+            df["Value"] = df["Value"].str.replace(",", "", regex=True)
+            df["Value"] = pd.to_numeric(df["Value"], errors="coerce")
+        if "load_time" in df.columns:
+            df["load_time"] = pd.to_datetime(df["load_time"]).dt.date
+        if "end_code" in df.columns:
+            df["end_code"] = pd.to_numeric(df["end_code"], errors="coerce")
+
+
+        return df
+
+
     def get_production_data(self, commodity: str, start_year: int, national_level=False, raw=False) -> pd.DataFrame | None:
         """
         :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
@@ -108,7 +178,7 @@ class DataLoader:
                 raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
                 raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
 
-                cols = ['state_name', 'Value', 'unit_desc', 'year', 'source_desc', 'short_desc']
+                cols = ['state_name', 'Value', 'unit_desc', 'year', 'source_desc', 'short_desc', 'reference_period_desc']
 
                 return raw_data[cols]
         else:

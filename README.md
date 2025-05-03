@@ -69,6 +69,7 @@ ErdosAgriDerivPredict/
 │   ├── data/                # Scripts for data ingestion, cleaning, and processing.
 │   ├── models/              # Code for building, training, and evaluating models.
 │   ├── utils/               # Utility functions (e.g., logging, configuration handling).
+│   ├── constants/           # The static constants like cropValue code, FIPS code and etc.
 ├──
 ├── Gemfile                  # The gems that supports the Github Pages
 ├── _config.yml              # The configuration for the Github Pages
