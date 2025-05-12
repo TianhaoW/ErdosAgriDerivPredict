@@ -51,6 +51,11 @@ Due to data limitations, we focus on the **daily closing price** of the **neares
 
 ---
 
+## Contribution Guide
+1. Set up your API key in the ~/config/config.toml
+2. Download the cropland layer file from [USDA_cropland](https://www.nass.usda.gov/Research_and_Science/Cropland/Release/). Save it in `~/dataset/raw/`
+3. Run `~/src/data/update_data.py` to obtain and auto update the dataset locally.
+
 ## File Structure
 
 ```bash
