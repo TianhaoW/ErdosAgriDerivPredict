@@ -1,0 +1,647 @@
+<!doctype html>
+
+
+
+
+<html
+    dir="ltr"
+    lang="en"
+    class=" has-navbar-fixed-top  "
+>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link
+        rel="shortcut icon"
+        type="image/png"
+        
+            href="/favicon.png"
+        
+    >
+    <script defer src="https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css">
+    
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Sugar Futures Market | U.S. Agricultural Futures Market</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Sugar Futures Market" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/pages/analysis/sugar.html" />
+<meta property="og:url" content="http://localhost:4000/pages/analysis/sugar.html" />
+<meta property="og:site_name" content="U.S. Agricultural Futures Market" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Sugar Futures Market" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Sugar Futures Market","url":"http://localhost:4000/pages/analysis/sugar.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <script type="text/javascript">
+  MathJax = {
+      tex: {
+          inlineMath: [['$', '$']], // Inline math using $...$
+           processEscapes: true
+      },
+  };
+</script>
+<script type="text/javascript" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<script src="/assets/js/modal.js"></script>
+<link rel="stylesheet" href="/assets/css/custom.css">
+</head>
+
+    <body>
+        
+        <nav
+    class="navbar is-primary  is-fixed-top "
+    x-data="{ openNav: false }"
+>
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="/" class="navbar-item">
+                U.S. Agricultural Futures Market
+            </a>
+            <a
+                role="button"
+                class="navbar-burger burger"
+                aria-label="menu"
+                aria-expanded="false"
+                data-target="navMenu"
+                :class="{ 'is-active': openNav }"
+                x-on:click="openNav = !openNav"
+            >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu" id="navMenu" :class="{ 'is-active': openNav }">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item ">Homepage</a>
+                
+                    
+                        
+                            <a
+                                href="/pages/intro"
+                                class="navbar-item "
+                            >Futures 101</a>
+                        
+                    
+                        
+                            <div class="navbar-item has-dropdown is-hoverable ">
+                                <a
+                                    href="/pages/analysis"
+                                    class="navbar-link is-active"
+                                >Market Overview</a>
+                                <div class="navbar-dropdown">
+                                    
+                                        <a
+                                            href="/pages/analysis/wheat"
+                                            class="navbar-item "
+                                        >Wheat</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/corn"
+                                            class="navbar-item "
+                                        >Corn</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/orange"
+                                            class="navbar-item "
+                                        >Orange</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/sugar"
+                                            class="navbar-item "
+                                        >Sugar</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/sunflower"
+                                            class="navbar-item "
+                                        >Sunflower</a>
+                                    
+                                </div>
+                            </div>
+                        
+                    
+                        
+                            <a
+                                href="/pages/prediction"
+                                class="navbar-item "
+                            >AI Forecasting</a>
+                        
+                    
+                
+            </div>
+
+            <div class="navbar-end">
+                
+            </div>
+        </div>
+    </div>
+</nav>
+        
+            <section
+    class="hero  is-medium  is-bold is-primary"
+    
+>
+    <div class="hero-body ">
+        <div class="container">
+            <h1 class="title is-2">Sugar Futures Market</h1>
+            <p class="subtitle is-3"></p>
+            
+        </div>
+    </div>
+</section>
+
+        
+        
+
+        
+
+        <section class="section">
+            <div class="container">
+                <div class="columns is-multiline">
+                    
+                    <div class="column is-12">
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+    
+    
+
+<div class="contents">
+    <div class="menu">
+        <p class="menu-label">Table of Contents</p>
+        <ul class="menu-list">
+  <li><a href="#sugar-production-and-its-diverse-applications">Sugar Production and Its Diverse Applications</a>
+    <ul>
+      <li><a href="#major-sugar-producing-regions-in-the-us">Major Sugar-Producing Regions in the U.S.</a></li>
+      <li><a href="#historical-context">Historical Context</a></li>
+      <li><a href="#non-food-applications-of-sugar">Non-Food Applications of Sugar</a></li>
+    </ul>
+  </li>
+  <li><a href="#plots-of-market-trends">Plots of Market Trends</a>
+    <ul>
+      <li><a href="#single-timeline-of-closing-price">Single Timeline of Closing Price</a></li>
+      <li><a href="#by-year-closing-price">By-Year Closing Price</a></li>
+      <li><a href="#30-day-rolling-volatility-of-closing-price">30-Day Rolling Volatility of Closing Price</a></li>
+      <li><a href="#moving-averages-of-closing-price">Moving Averages of Closing Price</a></li>
+      <li><a href="#single-timeline-of-volume">Single Timeline of Volume</a></li>
+      <li><a href="#by-year-volume">By-Year Volume</a></li>
+      <li><a href="#volume-based-on-days-till-expiry">Volume based on Days Till Expiry</a></li>
+      <li><a href="#sugar-futures-log-returns">Sugar Futures Log Returns</a></li>
+      <li><a href="#comparison-of-sugar-and-corn-futures-standardized">Comparison of Sugar and Corn Futures (Standardized)</a></li>
+      <li><a href="#partial-autocorrelation-of-7-day-log-returns">Partial Autocorrelation of 7-Day Log Returns</a></li>
+    </ul>
+  </li>
+</ul>
+    </div>
+</div>
+
+
+<div class="content">
+    <h2 id="sugar-production-and-its-diverse-applications">Sugar Production and Its Diverse Applications</h2>
+
+<h3 id="major-sugar-producing-regions-in-the-us">Major Sugar-Producing Regions in the U.S.</h3>
+
+<p>Sugar in the United States is primarily derived from two sources: <strong>sugarcane</strong> and <strong>sugar beets</strong>.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source</th>
+      <th>Top States</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sugarcane</td>
+      <td>Florida, Louisiana, Texas, Hawaii (historical)</td>
+      <td>Florida leads (mainly Palm Beach Co.); Louisiana is a strong producer. Hawaii ceased production in 2016.</td>
+    </tr>
+    <tr>
+      <td>Sugar Beets</td>
+      <td>Minnesota, North Dakota, Michigan, Idaho, Nebraska, Montana, California, Wyoming, Oregon, Washington, Colorado</td>
+      <td>Beet production is centered in the Upper Midwest, Great Plains, and Pacific Northwest.</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Sugarcane is grown in the Southern U.S., with Florida and Louisiana as top producers.</li>
+  <li>Sugar beets are cultivated in temperate regions, especially the Upper Midwest and West.</li>
+  <li>Together, these two sources form the basis of the U.S. sugar supply chain.</li>
+  <li>Hawaii, once a major sugarcane producer, ended commercial operations in 2016.</li>
+</ul>
+
+<div x-data="{visible: true}">
+    <div class="notification is-info is-light" x-show.transition.duration.300ms="visible">
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+<h3 id="historical-context">Historical Context</h3>
+<p>The history of sugar production in the U.S. is intertwined with significant socio-economic developments:</p>
+
+<ul>
+  <li><strong>Slavery in Louisiana</strong>: Sugar plantations in Louisiana heavily relied on enslaved labor, contributing to the entrenchment of slavery in the region.</li>
+  <li><strong>Annexation of Hawaii</strong>: Economic interests tied to sugar production played a role in the U.S. annexation of Hawaii in the late 19th century.</li>
+</ul>
+</div>
+            </div>
+        </article>
+    </div>
+</div>
+
+<h3 id="non-food-applications-of-sugar">Non-Food Applications of Sugar</h3>
+<p>Beyond its role in food and beverages, sugar serves various industrial and commercial purposes:</p>
+
+<ul>
+  <li><strong>Pharmaceuticals</strong>: Sugar enhances the taste of medications and acts as a binder in pill formulations.</li>
+  <li><strong>Wastewater Treatment</strong>: Liquid sugar is utilized to facilitate the denitrification process in wastewater management.</li>
+  <li><strong>Agriculture</strong>: Sugar solutions are applied in vineyards to stimulate microbial activity, promoting soil health.</li>
+  <li><strong>Cleaning</strong>: Sugar can be an effective agent for removing certain stains from clothing and appliances.</li>
+  <li><strong>Bioplastics</strong>: Sugar serves as a base material in producing bioplastics, offering a renewable alternative to conventional plastics.</li>
+</ul>
+
+<h2 id="plots-of-market-trends">Plots of Market Trends</h2>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/price1.png" alt="Chart" onclick="openModal('/imgs/sugar/price1.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="single-timeline-of-closing-price">Single Timeline of Closing Price</h3>
+
+<p>There are low points such as the period leading up to 2008, 2016, and 2020 which align with certain global recessions.</p>
+
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="by-year-closing-price">By-Year Closing Price</h3>
+
+<p>There is a price drop around the 125th day which may correspond to the expiry of Sugar No. 16 contracts in April.</p>
+
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/price2.png" alt="Chart" onclick="openModal('/imgs/sugar/price2.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/volatility.png" alt="Chart" onclick="openModal('/imgs/sugar/volatility.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="30-day-rolling-volatility-of-closing-price">30-Day Rolling Volatility of Closing Price</h3>
+
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="moving-averages-of-closing-price">Moving Averages of Closing Price</h3>
+
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/MA.png" alt="Chart" onclick="openModal('/imgs/sugar/MA.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/vol1.png" alt="Chart" onclick="openModal('/imgs/sugar/vol1.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="single-timeline-of-volume">Single Timeline of Volume</h3>
+
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="by-year-volume">By-Year Volume</h3>
+
+<p>Delivery months are January, March, May, July, September, November and the last trading days are on the 8th day of the prior month. There appear to be spikes in volume around these times.</p>
+
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/vol2.png" alt="Chart" onclick="openModal('/imgs/sugar/vol2.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/vol3.png" alt="Chart" onclick="openModal('/imgs/sugar/vol3.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="volume-based-on-days-till-expiry">Volume based on Days Till Expiry</h3>
+
+<p>Low volume near day of expiry until on the last trading day, there is a spike as traders clear their positions.</p>
+
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="sugar-futures-log-returns">Sugar Futures Log Returns</h3>
+
+<p>Empirically, the log returns seem normally distributed with mean 0.</p>
+
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/log_return.png" alt="Chart" onclick="openModal('/imgs/sugar/log_return.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/corn.png" alt="Chart" onclick="openModal('/imgs/sugar/corn.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="comparison-of-sugar-and-corn-futures-standardized">Comparison of Sugar and Corn Futures (Standardized)</h3>
+
+<p>Since corn syrup is a widely used sweetener, we plot the two together. Very roughly, it does seem like the shape of the curve for sugar is ahead of the one for corn. E.g. one of the minima for sugar is near the end of 2023 while a similar minimum for corn occurs in February of 2024.</p>
+
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="partial-autocorrelation-of-7-day-log-returns">Partial Autocorrelation of 7-Day Log Returns</h3>
+
+<p>As a secondary point of interest, theory of geometric Brownian motion suggests there be spikes in the partial autocorrelation function at days $x \equiv 1 \pmod{7}$, which indeed is observed here.</p>
+
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/sugar/pacf.png" alt="Chart" onclick="openModal('/imgs/sugar/pacf.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+
+</div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+            <footer class="footer">
+    <div class="container">
+        
+
+
+        This is a group project for the <a href = "https://www.erdosinstitute.org/">Erdos Institute</a>
+        2025 Spring data science bootcamp. Our team members are
+        <a href = "https://github.com/AnshumanGH91">Anshuman Bhardwaj</a>,
+        <a href = "https://github.com/johng23">John Yin</a>,
+        <a href = "https://github.com/Lorxus">Paul Rapoport</a>,
+        <a href = "https://github.com/sunscorched">Sam Auyeung</a>,
+        <a href = "https://tianhaow.github.io">Tianhao Wang</a>
+        <div class="content is-small has-text-centered">
+            <p class="">Theme built by <a href="https://www.csrhymes.com">C.S. Rhymes</a></p>
+        </div>
+    </div>
+</footer>
+        
+        <script src="/assets/js/app.js" type="text/javascript"></script><!-- footer scripts -->
+</body>
+</html>

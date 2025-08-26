@@ -1,0 +1,17 @@
+.chart-description {
+    max-width: 90vw; /* Adjust width relative to screen size */
+    margin: auto;
+}
+
+.chart-container {
+    width: 100%; /* Makes the chart container flexible */
+    height: auto;
+    cursor: pointer; /* Indicates clickability */
+}
+
+.chart-container img {
+    width: 100%; /* Ensures the image fits inside */
+    height: auto;
+    object-fit: contain; /* Maintains aspect ratio */
+    border-radius: 5px; /* Optional: Adds rounded corners */
+}

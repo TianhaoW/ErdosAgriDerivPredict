@@ -1,0 +1,6 @@
+########################################################################################################################
+# this contains all the path information. All pathes are relative to this config.toml document.
+# The project root is set to be ../
+[path]
+project_root = './'
+run_log_dir = './logs'

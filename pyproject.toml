@@ -1,0 +1,50 @@
+[project]
+name = "ErdosAgriDerivPredict"
+version = "0.1.0"
+description = "A project to predict agricultural derivative prices."
+authors = [
+    {name = "TianhaoW", email = ""},
+]
+dependencies = [
+    "numpy",
+    "pandas",
+    "polars",
+    "scipy",
+    "matplotlib",
+    "seaborn",
+    "scikit-learn",
+    "requests",
+    "beautifulsoup4",
+    "yfinance",
+    "statsmodels",
+    "xgboost",
+    "torch>=2.6.0",
+    "jupyter",
+    "geopandas>=1.1.1",
+    "rasterio>=1.4.3",
+    "python-dotenv",
+    "dotenv>=0.9.9",
+    "sqlalchemy"
+]
+requires-python = ">=3.12"
+
+[project.optional-dependencies]
+dev = [
+    "uv",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "uv",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]

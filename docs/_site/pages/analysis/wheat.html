@@ -1,0 +1,606 @@
+<!doctype html>
+
+
+
+
+<html
+    dir="ltr"
+    lang="en"
+    class=" has-navbar-fixed-top  "
+>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="/assets/css/app.css">
+    <link
+        rel="shortcut icon"
+        type="image/png"
+        
+            href="/favicon.png"
+        
+    >
+    <script defer src="https://unpkg.com/alpinejs@3.9.0/dist/cdn.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5/css/all.min.css">
+    
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma-social@1/bin/bulma-social.min.css">
+    
+    <!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Wheat Futures Market | U.S. Agricultural Futures Market</title>
+<meta name="generator" content="Jekyll v3.10.0" />
+<meta property="og:title" content="Wheat Futures Market" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/pages/analysis/wheat.html" />
+<meta property="og:url" content="http://localhost:4000/pages/analysis/wheat.html" />
+<meta property="og:site_name" content="U.S. Agricultural Futures Market" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Wheat Futures Market" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","headline":"Wheat Futures Market","url":"http://localhost:4000/pages/analysis/wheat.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <script type="text/javascript">
+  MathJax = {
+      tex: {
+          inlineMath: [['$', '$']], // Inline math using $...$
+           processEscapes: true
+      },
+  };
+</script>
+<script type="text/javascript" async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
+<script src="/assets/js/modal.js"></script>
+<link rel="stylesheet" href="/assets/css/custom.css">
+</head>
+
+    <body>
+        
+        <nav
+    class="navbar is-primary  is-fixed-top "
+    x-data="{ openNav: false }"
+>
+    <div class="container">
+        <div class="navbar-brand">
+            <a href="/" class="navbar-item">
+                U.S. Agricultural Futures Market
+            </a>
+            <a
+                role="button"
+                class="navbar-burger burger"
+                aria-label="menu"
+                aria-expanded="false"
+                data-target="navMenu"
+                :class="{ 'is-active': openNav }"
+                x-on:click="openNav = !openNav"
+            >
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu" id="navMenu" :class="{ 'is-active': openNav }">
+            <div class="navbar-start">
+                <a href="/" class="navbar-item ">Homepage</a>
+                
+                    
+                        
+                            <a
+                                href="/pages/intro"
+                                class="navbar-item "
+                            >Futures 101</a>
+                        
+                    
+                        
+                            <div class="navbar-item has-dropdown is-hoverable ">
+                                <a
+                                    href="/pages/analysis"
+                                    class="navbar-link is-active"
+                                >Market Overview</a>
+                                <div class="navbar-dropdown">
+                                    
+                                        <a
+                                            href="/pages/analysis/wheat"
+                                            class="navbar-item "
+                                        >Wheat</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/corn"
+                                            class="navbar-item "
+                                        >Corn</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/orange"
+                                            class="navbar-item "
+                                        >Orange</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/sugar"
+                                            class="navbar-item "
+                                        >Sugar</a>
+                                    
+                                        <a
+                                            href="/pages/analysis/sunflower"
+                                            class="navbar-item "
+                                        >Sunflower</a>
+                                    
+                                </div>
+                            </div>
+                        
+                    
+                        
+                            <a
+                                href="/pages/prediction"
+                                class="navbar-item "
+                            >AI Forecasting</a>
+                        
+                    
+                
+            </div>
+
+            <div class="navbar-end">
+                
+            </div>
+        </div>
+    </div>
+</nav>
+        
+            <section
+    class="hero  is-medium  is-bold is-primary"
+    
+>
+    <div class="hero-body ">
+        <div class="container">
+            <h1 class="title is-2">Wheat Futures Market</h1>
+            <p class="subtitle is-3"></p>
+            
+        </div>
+    </div>
+</section>
+
+        
+        
+
+        
+
+        <section class="section">
+            <div class="container">
+                <div class="columns is-multiline">
+                    
+                    <div class="column is-12">
+                        
+
+                        
+
+                        
+
+                        
+
+                        
+    
+    
+
+<div class="contents">
+    <div class="menu">
+        <p class="menu-label">Table of Contents</p>
+        <ul class="menu-list">
+  <li><a href="#wheat-species-and-their-market-significance">Wheat Species and Their Market Significance</a>
+    <ul>
+      <li><a href="#major-wheat-species">Major Wheat Species</a></li>
+      <li><a href="#the-soft-red-winter-srw-wheat">The Soft Red Winter (SRW) Wheat</a></li>
+    </ul>
+  </li>
+  <li><a href="#market-data-analysis">Market Data Analysis</a>
+    <ul>
+      <li><a href="#wheat-futures-price-trends-historical-perspective">Wheat Futures Price Trends (Historical Perspective)</a></li>
+      <li><a href="#contango-market-structure">Contango Market Structure</a></li>
+      <li><a href="#trading-volume-analysis">Trading Volume Analysis</a></li>
+      <li><a href="#spectral-analysis-of-log-returns">Spectral Analysis of Log Returns</a></li>
+    </ul>
+  </li>
+  <li><a href="#supply-and-demand-analysis">Supply and Demand Analysis</a>
+    <ul>
+      <li><a href="#wheat-production--stocks">Wheat Production &amp; Stocks</a></li>
+      <li><a href="#winter-wheat-production-by-region">Winter Wheat Production by Region</a></li>
+      <li><a href="#weekly-wheat-crop-condition-analysis">Weekly Wheat Crop Condition Analysis</a></li>
+    </ul>
+  </li>
+</ul>
+    </div>
+</div>
+
+
+<div class="content">
+    <h2 id="wheat-species-and-their-market-significance">Wheat Species and Their Market Significance</h2>
+
+<p>Wheat is one of the most important staple crops globally, and in the U.S., there are six classes of wheat, categorized by <strong>kernel hardness</strong>, <strong>color</strong>, and <strong>planting season</strong>:</p>
+
+<h3 id="major-wheat-species">Major Wheat Species</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Wheat Type</th>
+      <th>Key Characteristics</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Hard Red Winter (HRW)</strong></td>
+      <td>Bread flour, <strong>largest production &amp; export</strong> (Great Plains)</td>
+    </tr>
+    <tr>
+      <td><strong>Hard Red Spring (HRS)</strong></td>
+      <td>High-protein, premium pricing (Northern Plains)</td>
+    </tr>
+    <tr>
+      <td><strong>Soft Red Winter (SRW)</strong></td>
+      <td>Used in pastries, <strong>most actively traded</strong> in U.S. Future market (Eastern U.S.)</td>
+    </tr>
+    <tr>
+      <td><strong>Soft White (SW)</strong></td>
+      <td>Noodles &amp; pastries, <strong>high exports (Asia)</strong> (Pacific Northwest)</td>
+    </tr>
+    <tr>
+      <td><strong>Hard White (HW)</strong></td>
+      <td>Whole wheat products, small but <strong>growing demand</strong> (Limited production in KS, CO)</td>
+    </tr>
+    <tr>
+      <td><strong>Durum</strong></td>
+      <td><strong>Highest protein</strong>, used for pasta (ND, MT, AZ)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>To analyze the wheat future market, we will focus on the <strong>SRW</strong> wheat, since it is traded heavily on U.S. futures 
+markets, and is the second-largest wheat class.</p>
+
+<div x-data="{visible: true}">
+    <div class="notification is-info is-light" x-show.transition.duration.300ms="visible">
+        
+        <article class="media">
+            
+            <div class="media-content">
+                <div class="content">
+<h3 id="the-soft-red-winter-srw-wheat">The Soft Red Winter (SRW) Wheat</h3>
+<ul>
+  <li>
+    <p><strong>Primary Growing Regions</strong>: Eastern U.S., particularly in states such as: Ohio, 
+Illinois, Indiana, Missouri, Kentucky, Arkansas</p>
+  </li>
+  <li>
+    <p><strong>Planting and Harvest Seasons</strong>: Typically planted in the fall (September to November), and harvested in early summer (June to 
+July).</p>
+  </li>
+  <li>
+    <p><strong>Vulnerabilities</strong>: Early Spring Frosts, Excessive Rainfall and Drought.</p>
+  </li>
+</ul>
+
+<h4 id="srw-wheat-futures-contract-specification">SRW Wheat Futures Contract Specification</h4>
+<p>The SRW wheat futures contract is primarily traded on the <strong>Chicago Board of Trade (CBOT)</strong> and follows these 
+specifications:</p>
+<ul>
+  <li><strong>Contract Size</strong>: 5,000 bushels (136 metric tons)</li>
+  <li><strong>Price Quotation</strong>: Dollars per bushel</li>
+  <li><strong>Minimum Price Fluctuation</strong>: 1/4 cent per bushel ($12.50 per contract)</li>
+  <li><strong>Expiry Months</strong>: March, May, July, September, December</li>
+  <li><strong>Last Trading Day</strong>: the business day prior to the 15th day of the contract month</li>
+</ul>
+
+<p>For a more detailed contract specification, see <a href="https://www.cmegroup.com/markets/agriculture/grains/wheat.contractSpecs.html">SRW WHEAT FUTURES - CONTRACT SPECS</a></p>
+</div>
+            </div>
+        </article>
+    </div>
+</div>
+
+<h2 id="market-data-analysis">Market Data Analysis</h2>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/wheat/price.png" alt="Chart" onclick="openModal('/imgs/wheat/price.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="wheat-futures-price-trends-historical-perspective">Wheat Futures Price Trends (Historical Perspective)</h3>
+<ul>
+  <li><strong>SRW and HRW wheat futures exhibit similar price trends</strong>, indicating strong correlation in their market movements.</li>
+  <li><strong>A sharp price surge occurred in 2022</strong>, primarily driven by the <strong>Russia-Ukraine war</strong>, which disrupted global 
+wheat supply chains.</li>
+  <li>Another <strong>significant spike in May 2024</strong> resulted from a combination of <strong>frost damage in key European 
+wheat-producing regions</strong> and <strong>drought conditions across North America</strong>. For more details, see this 
+<a href="https://www.chemanalyst.com/NewsAndDeals/NewsDetails/the-perfect-storm-factors-fueling-the-surge-in-global-wheat-prices-in-q2-of-2024-27869">report</a></li>
+</ul>
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="contango-market-structure">Contango Market Structure</h3>
+<ul>
+  <li>The futures contracts with later expiration dates trade at higher prices than near-term contracts. This is usually 
+called a <strong>contango market</strong>.</li>
+  <li>Contango typically occurs due to the following factors:
+    <ol>
+      <li><strong>Storage Costs</strong> - Longer holding periods increase storage expenses.</li>
+      <li><strong>Financing Costs (Interest Rates)</strong></li>
+      <li><strong>Insurance &amp; Transportation Costs</strong> - Longer storage requires insurance against spoilage, theft, or contamination.</li>
+      <li><strong>Market Expectations</strong> -  Anticipation of rising wheat prices can drive up futures prices for later contracts.</li>
+    </ol>
+  </li>
+</ul>
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/wheat/price_expiry_month_comparison.png" alt="Chart" onclick="openModal('/imgs/wheat/price_expiry_month_comparison.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/wheat/volume.png" alt="Chart" onclick="openModal('/imgs/wheat/volume.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="trading-volume-analysis">Trading Volume Analysis</h3>
+<ul>
+  <li><strong>Seasonal patterns</strong> are evident in trading volume, reflecting recurring market behavior.</li>
+  <li><strong>Declining volume as expiry nears</strong> – Many traders reduce activity in expiring contracts, shifting focus to 
+later-dated futures instead of speculating on short-term price movements.</li>
+  <li><strong>Pre-expiry volume surge</strong> – As the expiry date approaches, traders must close positions to avoid physical delivery. 
+This leads to a temporary spike in trading volume before the last trading day.</li>
+</ul>
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="spectral-analysis-of-log-returns">Spectral Analysis of Log Returns</h3>
+<ul>
+  <li><strong>No clear seasonality</strong> – Fourier and periodogram analysis show no dominant cycles in the log returns of wheat 
+futures.</li>
+  <li><strong>Lack of sharp peaks</strong> – The periodogram exhibits no strong periodic components, suggesting price changes are not 
+driven by regular seasonal patterns.</li>
+  <li><strong>Market randomness confirmed</strong> – This supports the view that wheat futures prices are influenced more by 
+fundamentals than by predictable cycles.</li>
+</ul>
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/wheat/seasonality.png" alt="Chart" onclick="openModal('/imgs/wheat/seasonality.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<h2 id="supply-and-demand-analysis">Supply and Demand Analysis</h2>
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/wheat/production_stock.png" alt="Chart" onclick="openModal('/imgs/wheat/production_stock.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="wheat-production--stocks">Wheat Production &amp; Stocks</h3>
+<ul>
+  <li><strong>Consistent drawdown (2018–2023)</strong> – Wheat stocks declined steadily across all four USDA reporting quarters (March, 
+June, September, December), reflecting tighter supply conditions and strong demand.</li>
+  <li><strong>Stock recovery begins in 2024</strong> – Starting in 2024, wheat stocks began to rise, reversing a six-year downward 
+trend. By March 2025, wheat stocks reached their <strong>highest level in four years</strong>.</li>
+  <li><strong>Winter wheat production rebound</strong> – The recovery in stocks is supported by an increase in winter wheat production, 
+which began in 2024, driven by expanded planted acreage and improved yields. See this <a href="https://www.ers.usda.gov/data-products/charts-of-note/chart-detail?chartId=110909">report</a>.</li>
+</ul>
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Description on the Left -->
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="winter-wheat-production-by-region">Winter Wheat Production by Region</h3>
+<ul>
+  <li><strong>Winter wheat concentrated in the Plains</strong> – Top producers include <strong>Kansas (22.8%)</strong>, <strong>Washington (9.1%)</strong>, 
+<strong>Oklahoma (8.0%)</strong>, and <strong>Montana (6.8%)</strong>, reflecting the dominance of winter wheat in the Central and Great Plains.</li>
+  <li><strong>SRW wheat centered in the Midwest and East</strong> – Leading states are <strong>Illinois (17.4%)</strong>, <strong>Ohio (11.5%)</strong>, 
+<strong>Missouri (10.4%)</strong>, and <strong>Kentucky (8.5%)</strong>, where SRW wheat thrives in more humid climates.</li>
+  <li><strong>Focus on key producers for modeling</strong> – We will use weather and crop condition data from these 
+major producing states to build our AI model.</li>
+</ul>
+
+                </div>
+            </div>
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/wheat/production_2024_state.png" alt="Chart" onclick="openModal('/imgs/wheat/production_2024_state.png')" />
+                </figure>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+<div class="box chart-description">
+    <div class="columns is-vcentered is-variable is-4">
+        
+            <!-- Chart on the Left -->
+            <div class="column is-two-thirds">
+                <figure class="image chart-container">
+                    <img src="/imgs/wheat/condition.png" alt="Chart" onclick="openModal('/imgs/wheat/condition.png')" />
+                </figure>
+            </div>
+            <div class="column">
+                <div class="content">
+                    
+<h3 id="weekly-wheat-crop-condition-analysis">Weekly Wheat Crop Condition Analysis</h3>
+<ul>
+  <li><strong>Crop condition weakly anticipates price movement</strong> – The weekly change in SRW wheat condition has a <strong>–0.05 
+correlation with next-day futures returns</strong>, which strengthens to <strong>–0.1 over the next 3 trading days</strong>, suggesting that price reacts gradually to crop condition updates.</li>
+  <li><strong>Negative correlation aligns with supply expectations</strong> – This inverse relationship makes intuitive sense: 
+improving crop health signals higher expected supply, which can put downward pressure on futures prices.</li>
+</ul>
+
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+<!-- Bulma Modal for Full-Size Image -->
+<div id="imageModal" class="modal">
+    <div class="modal-background" onclick="closeModal()"></div>
+    <div class="modal-content">
+        <figure class="image">
+            <img id="modalImage" src="" alt="Full Size Chart" />
+        </figure>
+    </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal()"></button>
+</div>
+
+
+</div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </section>
+        
+            <footer class="footer">
+    <div class="container">
+        
+
+
+        This is a group project for the <a href = "https://www.erdosinstitute.org/">Erdos Institute</a>
+        2025 Spring data science bootcamp. Our team members are
+        <a href = "https://github.com/AnshumanGH91">Anshuman Bhardwaj</a>,
+        <a href = "https://github.com/johng23">John Yin</a>,
+        <a href = "https://github.com/Lorxus">Paul Rapoport</a>,
+        <a href = "https://github.com/sunscorched">Sam Auyeung</a>,
+        <a href = "https://tianhaow.github.io">Tianhao Wang</a>
+        <div class="content is-small has-text-centered">
+            <p class="">Theme built by <a href="https://www.csrhymes.com">C.S. Rhymes</a></p>
+        </div>
+    </div>
+</footer>
+        
+        <script src="/assets/js/app.js" type="text/javascript"></script><!-- footer scripts -->
+</body>
+</html>

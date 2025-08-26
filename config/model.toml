@@ -1,0 +1,5 @@
+########################################################################################################################
+# this contains the standard setup of model training
+[train]
+train_start_date = "2014-01-01"
+valid_start_date = "2024-01-01"

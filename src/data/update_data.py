@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from src.data.preprocess import extend_market_data
 from src.data import DataLoader
-from src.utils import parse_config
+from src.utils import parse_config, get_logger
 from src.constants import COMMODITY_TO_CROP_VALUE, STATE_NAME_TO_ABBR
 from src.data.weather_util import (
     apply_convolution,
@@ -22,6 +22,7 @@ from src.data.weather_util import (
 
 
 config = parse_config()
+logger = get_logger(__name__, config)
 project_root = Path(config['path']['project_root']).resolve()
 symbols = config['data']['symbols']
 commodities = config['data']['commodities']
@@ -44,11 +45,11 @@ def update_market_data():
             last_date = df_existing.index[-1].date()
             start_date = last_date + timedelta(days=1)
         else:
-            print(f"{symbol}: File not found, downloading from {start_date_default}")
+            logger.info(f"{symbol}: File not found, downloading from {start_date_default}")
             start_date = start_date_default
 
         if start_date > today:
-            print(f"{symbol}: Already up to date.")
+            logger.info(f"{symbol}: Already up to date.")
             continue
 
         # Download new data
@@ -62,7 +63,7 @@ def update_market_data():
         df_new = df_new[df_new.index >= start_date]
 
         if df_new.empty:
-            print(f"{symbol}: No new data available.")
+            logger.info(f"{symbol}: No new data available.")
             continue
 
         # Format and append
@@ -80,7 +81,7 @@ def update_market_data():
         # create the directory if it does not exist
         file_path.parent.mkdir(parents=True, exist_ok=True)
         df_combined.to_csv(file_path, index_label="Date")
-        print(f"{symbol}: CSV updated with {len(df_new)} new rows.")
+        logger.info(f"{symbol}: CSV updated with {len(df_new)} new rows.")
 
 def update_USDA_reports():
     dl = DataLoader()
@@ -94,7 +95,7 @@ def update_USDA_reports():
                           .get(report, {})
                           .get(level) is None
                 ):
-                    print(f"{commodity} - {level} level {report}: No config found, skipping.")
+                    logger.debug(f"{commodity} - {level} level {report}: No config found, skipping.")
                     continue
 
                 params = config['usda_data'][commodity][report][level]['filters']
@@ -108,19 +109,19 @@ def update_USDA_reports():
                     existing_total_rows = len(df_existing)
 
                     if "year" not in df_existing.columns:
-                        print(f"{commodity} - {level} - {report}: No 'year' column in existing data! Please delete the csv file and download again.")
+                        logger.warning(f"{commodity} - {level} - {report}: No 'year' column in existing data! Please delete the csv file and download again.")
                         continue
                     last_year = df_existing['year'].max()
 
                     # Download starting from last_year - 1. We remove duplication later when merging the data
                     start_year = max(last_year - 1, start_year_default)
                 else:
-                    print(f"{commodity} - {level} - {report}: File not found, downloading from default start year.")
+                    logger.info(f"{commodity} - {level} - {report}: File not found, downloading from default start year.")
                     start_year = start_year_default
 
                 df_new = dl.get_usda_data(commodity, start_year, params)
-                if df_new.empty:
-                    print(f"{commodity} - {level} - {report}: No new data found.")
+                if df_new is None or df_new.empty:
+                    logger.info(f"{commodity} - {level} - {report}: No new data found.")
                     continue
 
                 df_new = df_new[columns]
@@ -135,7 +136,7 @@ def update_USDA_reports():
 
                 file_path.parent.mkdir(parents=True, exist_ok=True)
                 df_combined.to_csv(file_path, index=False)
-                print(f"{commodity} - {level} - {report}: Updated with {len(df_combined)-existing_total_rows} new rows (after deduplication).")
+                logger.info(f"{commodity} - {level} - {report}: Updated with {len(df_combined)-existing_total_rows} new rows (after deduplication).")
 
 def generate_top_production_states(output_path=None, top_k=10):
     # This will generate the top-k production states of the corps listed in the config.toml file using the last year production data
@@ -147,7 +148,7 @@ def generate_top_production_states(output_path=None, top_k=10):
         output_path = project_root / "dataset" / "top_production_states.json"
 
     if output_path.exists():
-        print("[WARN]: the top production states file already exists. If you want to overwrite it, delete the existing file.")
+        logger.warning("[WARN]: the top production states file already exists. If you want to overwrite it, delete the existing file.")
         return
 
     for commodity in commodities:
@@ -157,7 +158,7 @@ def generate_top_production_states(output_path=None, top_k=10):
         )
 
         if not file_path.exists():
-            print(f"[WARN] {commodity}: state-level production report not found at {file_path}")
+            logger.warning(f"[WARN] {commodity}: state-level production report not found at {file_path}")
             continue
 
         try:
@@ -191,7 +192,7 @@ def generate_top_production_states(output_path=None, top_k=10):
             result[commodity.upper()] = formatted
 
         except Exception as e:
-            print(f"[ERROR] Failed to process {commodity}: {e}")
+            logger.error(f"[ERROR] Failed to process {commodity}: {e}")
 
 
 
@@ -199,7 +200,7 @@ def generate_top_production_states(output_path=None, top_k=10):
     with open(output_path, "w") as f:
         json.dump(result, f, indent=2)
 
-    print(f"[INFO] Top production states saved to {output_path}")
+    logger.info(f"[INFO] Top production states saved to {output_path}")
 
 def downscale_cdl():
     src_path = config['data']['raw_cdl_path']
@@ -210,19 +211,19 @@ def downscale_cdl():
     output_dir.mkdir(parents=True, exist_ok=True)
 
     with rasterio.open(src_path) as src:
-        print(f"[INFO] Raw sdl file loaded successfully.")
+        logger.info(f"[INFO] Raw sdl file loaded successfully.")
         arr = src.read(1)
 
         for crop in crops:
             if crop not in COMMODITY_TO_CROP_VALUE:
-                print(f"[WARN] Skipping unknown crop: {crop}")
+                logger.warning(f"[WARN] Skipping unknown crop: {crop}")
                 continue
 
             cropValue = COMMODITY_TO_CROP_VALUE[crop]
             save_path = output_dir / f"{crop}.npy"
 
             if save_path.exists():
-                print(f"[WARN] downscaled cdl already exists at {save_path}. Please remove it if you want to overwrite.")
+                logger.warning(f"[WARN] downscaled cdl already exists at {save_path}. Please remove it if you want to overwrite.")
                 continue
 
             try:
@@ -232,9 +233,9 @@ def downscale_cdl():
                     cropValue=cropValue
                 )
                 np.save(save_path, arr_downscaled)
-                print(f"[INFO] Saved downscaled array for {crop} to {save_path}")
+                logger.info(f"[INFO] Saved downscaled array for {crop} to {save_path}")
             except Exception as e:
-                print(f"[ERROR] Failed to process {crop}: {e}")
+                logger.error(f"[ERROR] Failed to process {crop}: {e}")
 
 def generate_k_stations_near_corpland():
     # --- Configurations ---
@@ -255,11 +256,11 @@ def generate_k_stations_near_corpland():
         output_path = project_root / "dataset" / "processed" / "weather_mapping" /f"{crop}_station_to_crop.pkl"
 
         if not downscaled_cdl_path.exists():
-            print(f"[WARN] Downscaled cdl file not found for {crop}.]")
+            logger.warning(f"[WARN] Downscaled cdl file not found for {crop}.]")
             continue
 
         if output_path.exists():
-            print(f"[WARN] the file {output_path} already exists. Please remove it first if you want to overwrite.")
+            logger.warning(f"[WARN] the file {output_path} already exists. Please remove it first if you want to overwrite.")
             continue
 
         if crop not in top_states:
@@ -304,14 +305,14 @@ def generate_k_stations_near_corpland():
         with open(output_path, "wb") as f:
             pickle.dump(pickle_data, f)
 
-        print(f"[INFO] Weather mapping saved to {output_path}")
+        logger.info(f"[INFO] Weather mapping saved to {output_path}")
 
 
 
 def update_weather_data():
     state_file = project_root / "dataset" / "top_production_states.json"
     if not state_file.exists():
-        print(f"[WARN] the top production states file not found.")
+        logger.warning(f"[WARN] the top production states file not found.")
         return
 
     state_set = set()
@@ -336,14 +337,14 @@ def update_weather_data():
             start_date = start_date_default
 
         if start_date > today:
-            print(f"[INFO] {state_abbr}: Already up to date.")
+            logger.info(f"[INFO] {state_abbr}: Already up to date.")
             return
 
         # Fetch new data
         end_date = today.isoformat()
         data = get_climate_data(state_abbr, start_date.isoformat(), end_date)
         if not data or "data" not in data:
-            print(f"[WARN] No data returned for {state_abbr}")
+            logger.warning(f"[WARN] No data returned for {state_abbr}")
             return
 
         rows = []
@@ -378,7 +379,7 @@ def update_weather_data():
 
         df_combined = df_combined.sort_values(by=["date", "station_name"])
         df_combined.to_csv(file_path, index=False)
-        print(f"[INFO] {state_abbr}: Weather data updated to {file_path}")
+        logger.info(f"[INFO] {state_abbr}: Weather data updated to {file_path}")
 
 if __name__ == "__main__":
     update_market_data()
