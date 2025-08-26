@@ -3,7 +3,7 @@ name = "ErdosAgriDerivPredict"
 version = "0.1.0"
 description = "A project to predict agricultural derivative prices."
 authors = [
-    {name = "TianhaoW", email = ""},
+    {name = "TianhaoW", email = "tianhw11@uci.edu"},
 ]
 dependencies = [
     "numpy",
@@ -17,16 +17,17 @@ dependencies = [
     "beautifulsoup4",
     "yfinance",
     "statsmodels",
-    "xgboost",
     "torch>=2.6.0",
     "jupyter",
     "geopandas>=1.1.1",
     "rasterio>=1.4.3",
     "python-dotenv",
     "dotenv>=0.9.9",
-    "sqlalchemy"
+    "sqlalchemy",
+    "xgboost>=3.0.4",
+    "hyperopt>=0.2.7",
 ]
-requires-python = ">=3.12"
+requires-python = "==3.12.*"
 
 [project.optional-dependencies]
 dev = [

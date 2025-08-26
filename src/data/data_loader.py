@@ -138,3 +138,142 @@ class DataLoader:
 
 
         return df
+    
+    def get_production_data(self, commodity: str, start_year: int, national_level=False, raw=False) -> pd.DataFrame | None:
+        """
+        :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
+        :param start_year: the starting year of the data
+        :param raw: If true, this will return the raw data with many additional columns
+        :return: the production data obtained from the API
+
+        This function will return the annual production data per state obtained from the USDA API. Please be aware that
+        there could be several data in a year. This is usually caused by different data collection methods (survey vs census)
+        or different commodity subcategories (e.g. For wheat, there are HRW, SRW, HRS wheat)
+        """
+        params = {
+            'key': config['api']['USDA_api_key'],
+            'commodity_desc': commodity,
+            'statisticcat_desc': 'PRODUCTION',
+            'agg_level_desc': 'STATE',
+            'year__GE': start_year,
+            'format': 'JSON',
+    #            'unit_desc': 'BU',
+    #            'domaincat_desc': 'NOT SPECIFIED',
+        }
+
+        if national_level:
+            params['agg_level_desc'] = 'NATIONAL'
+
+        response = requests.get(_USDA_url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            raw_data = pd.DataFrame(data['data'])
+
+            if raw:
+                return raw_data
+            else:
+                # Convert the numerical columns from string to numerical values
+                raw_data['year'] = pd.to_numeric(raw_data['year'])
+                raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
+                raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
+
+                cols = ['state_name', 'Value', 'unit_desc', 'year', 'source_desc', 'short_desc', 'reference_period_desc']
+
+                return raw_data[cols]
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
+
+    def get_stocks_data(self, commodity: str, start_year: int, national_level=False, raw=False) -> pd.DataFrame | None:
+        """
+        :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
+        :param start_year: the starting year of the data
+        :param raw: if true, this will return the raw data with many additional columns
+        :param national_level: If true, this will return the US national level data instead of state level data
+        :return:
+
+        This function will return the quarterly stock data per state or nationwide obtained from the USDA API.
+        """
+        params = {
+            'key': config['api']['USDA_api_key'],
+            'commodity_desc': commodity,
+            'statisticcat_desc': 'STOCKS',
+            'agg_level_desc': 'STATE',
+            'year__GE': start_year,
+            'format': 'JSON',
+        }
+
+        if national_level:
+            params['agg_level_desc'] = 'NATIONAL'
+
+        response = requests.get(_USDA_url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            raw_data = pd.DataFrame(data['data'])
+
+            if raw:
+                return raw_data
+            else:
+                # Convert the numerical columns from string to numerical values
+                raw_data['year'] = pd.to_numeric(raw_data['year'])
+                # raw_data['end_month'] = raw_data['end_month'].astype(int)
+                raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
+                raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
+
+                pivoted = raw_data.pivot(index=['year', 'end_code', 'state_name'], columns='short_desc',
+                                       values='Value').reset_index()
+
+                pivoted.rename(columns={'end_code': 'end_month'}, inplace=True)
+                return pivoted
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
+
+    def get_condition_data(self, commodity: str, start_year: int, exact_year=None, national_level=False,
+                        raw=False) -> pd.DataFrame | None:
+        """
+        :param commodity: the name of the commodity. For example, "WHEAT", "CORN", "SOYBEANS", "SUNFLOWER", "SUGARCANE", "SUGARBEETS"
+        :param start_year: the starting year of the data
+        :param exact_year: if this value is set, then this function will return the data of that year.
+        :param raw: if true, this will return the raw data with many additional columns
+        :param national_level: If true, this will return the US national level data instead of state level data
+        :return:
+
+        This function will return the growing condition of the selected commodity. This data is provided by the USDA weekly.
+        """
+        params = {
+            'key': config['api']['USDA_api_key'],
+            'commodity_desc': commodity,
+            'statisticcat_desc': 'CONDITION',
+            'agg_level_desc': 'STATE',
+            'year__GE': start_year,
+            'format': 'JSON',
+        }
+
+        if national_level:
+            params['agg_level_desc'] = 'NATIONAL'
+
+        if exact_year:
+            del params['year__GE']
+            params['year'] = exact_year
+
+        response = requests.get(_USDA_url, params=params)
+
+        if response.status_code == 200:
+            data = response.json()
+            raw_data = pd.DataFrame(data['data'])
+
+            if raw:
+                return raw_data
+            else:
+                # Convert the numerical columns from string to numerical values
+                raw_data['year'] = pd.to_numeric(raw_data['year'])
+                raw_data['Value'] = raw_data['Value'].str.replace(',', '', regex=True)
+                raw_data['Value'] = pd.to_numeric(raw_data['Value'], errors='coerce')
+
+                pivoted = raw_data.pivot(index=['week_ending', 'year', 'state_name', 'end_code'], columns='unit_desc', values='Value').reset_index().set_index('week_ending')
+                pivoted.rename(columns={'end_code': 'week_number'}, inplace=True)
+
+                return pivoted
+        else:
+            print(f"Error: {response.status_code}, {response.text}")
